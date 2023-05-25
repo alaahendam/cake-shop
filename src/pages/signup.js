@@ -3,38 +3,39 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { pink, green } from "@mui/material/colors";
 import Button from "@mui/material/Button";
 import Image from "next/image";
+import InOutForm from "@/components/InOutForm";
 
 const theme = createTheme({
   palette: {
     primary: {
       main: pink[700],
-      contrastText: green[500],
+      contrastText: "#FFFFFF",
     },
     secondary: {
-      main: green[500],
+      main: pink[700],
+      contrastText: "#FFFFFF",
+    },
+    third: {
+      main: "#FFFFFF",
       contrastText: pink[700],
     },
   },
 });
 
-const SignUp = () => {
+const Login = () => {
   return (
     <ThemeProvider theme={theme}>
       <div
         className={styles.main}
-        style={{ backgroundColor: theme.palette.primary.main }}
+        style={{ backgroundColor: theme.palette.third.main }}
       >
-        {/* <Button variant="contained" color="secondary">
-          Pink Background, Green Font
-        </Button>
-        <Button variant="contained" color="primary">
-          White Background, Pink Font
-        </Button>
-        login */}
-        <div className={styles.form}></div>
+        <div className={styles.form}>
+          <h1 style={{ color: theme.palette.third.contrastText }}>SignUp</h1>
+          <InOutForm theme={theme} />
+        </div>
         <div className={styles.imgContainer}>
           <Image
-            src="/images/loginCake.webp"
+            src="/images/signupCake2.png"
             alt="Example Image"
             width={400}
             height={500}
@@ -46,4 +47,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Login;
