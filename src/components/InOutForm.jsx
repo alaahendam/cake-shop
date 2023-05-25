@@ -2,9 +2,11 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import InputText from "./InputText";
 import { Button } from "@material-ui/core";
+import { motion } from "framer-motion";
 import styles from "@/styles/login.module.css";
 
 function InOutForm({ theme, submitButton }) {
+  const AnimatedButton = motion(Button);
   return (
     <Box
       component="form"
@@ -17,7 +19,10 @@ function InOutForm({ theme, submitButton }) {
       ) : null}
       <InputText label="Email" variant="standard" theme={theme} />
       <InputText label="Password" variant="standard" theme={theme} />
-      <Button
+      <motion.div />
+      <AnimatedButton
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.9 }}
         sx={{
           color: theme.palette.secondary.contrastText,
           backgroundColor: theme.palette.secondary.main,
@@ -27,7 +32,7 @@ function InOutForm({ theme, submitButton }) {
         }}
       >
         {submitButton}
-      </Button>
+      </AnimatedButton>
     </Box>
   );
 }

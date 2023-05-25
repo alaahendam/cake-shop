@@ -1,4 +1,5 @@
 import * as React from "react";
+import Link from "next/link";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,6 +13,7 @@ import Badge from "@mui/material/Badge";
 import SearchIcon from "@mui/icons-material/Search";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { green, pink } from "@mui/material/colors";
+import { useRouter } from "next/router";
 
 const theme = createTheme({
   palette: {
@@ -39,27 +41,20 @@ const theme = createTheme({
     },
   },
 });
-import Link from "next/link";
+
 const pages = ["Products", "About", "Blog", "Contact", "Login"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function ResponsiveAppBar() {
+  const router = useRouter();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
   };
 
   return (
@@ -153,12 +148,19 @@ function ResponsiveAppBar() {
                 }}
               >
                 {pages.map((page) => (
-                  <Button key={page} sx={{ my: 2, display: "block" }}>
-                    <Link href={`/${page.toLocaleLowerCase()}`}>{page}</Link>
+                  <Button
+                    key={page}
+                    sx={{ my: 2, display: "block" }}
+                    onClick={() => router.push(`/${page.toLocaleLowerCase()}`)}
+                  >
+                    {page}
                   </Button>
                 ))}
-                <Button sx={{ my: 2, display: "block" }}>
-                  <Link href={`/signup`}>Sign Up</Link>
+                <Button
+                  sx={{ my: 2, display: "block" }}
+                  onClick={() => router.push("/signup")}
+                >
+                  Sign Up
                 </Button>
               </Menu>
             </Box>

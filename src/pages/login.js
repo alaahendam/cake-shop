@@ -4,6 +4,7 @@ import { pink, green } from "@mui/material/colors";
 import Button from "@mui/material/Button";
 import Image from "next/image";
 import InOutForm from "@/components/InOutForm";
+import { motion } from "framer-motion";
 
 const theme = createTheme({
   palette: {
@@ -34,13 +35,24 @@ const Login = () => {
           <InOutForm theme={theme} submitButton="Login" />
         </div>
         <div className={styles.imgContainer}>
-          <Image
-            src="/images/loginCake.webp"
-            alt="Example Image"
-            width={400}
-            height={500}
-            className={styles["image-3d"]}
-          />
+          <motion.div
+            initial={{ scale: 1 }}
+            animate={{ scale: [1, 1.09, 1] }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              repeatType: "loop",
+              ease: "easeInOut",
+            }}
+          >
+            <Image
+              src="/images/loginCake.webp"
+              alt="Example Image"
+              width={400}
+              height={500}
+              className={styles["image-3d"]}
+            />
+          </motion.div>
         </div>
       </div>
     </ThemeProvider>
