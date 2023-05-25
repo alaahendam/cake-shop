@@ -98,21 +98,21 @@ function ResponsiveAppBar() {
                 alignItems: "center",
               }}
             >
+              <IconButton
+                sx={{
+                  fontSize: "17px",
+                }}
+              >
+                <Link href="/signup">Sign Up</Link>
+              </IconButton>
+              <IconButton
+                sx={{
+                  fontSize: "17px",
+                }}
+              >
+                ENG
+              </IconButton>
               <IconButton>
-                <IconButton
-                  sx={{
-                    fontSize: "17px",
-                  }}
-                >
-                  <Link href="/signup">Sign Up</Link>
-                </IconButton>
-                <IconButton
-                  sx={{
-                    fontSize: "17px",
-                  }}
-                >
-                  ENG
-                </IconButton>
                 <Badge badgeContent={4} color="success">
                   <Link href="/shop">
                     <ShoppingCartIcon />
