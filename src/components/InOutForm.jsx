@@ -1,11 +1,10 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import InputText from "./InputText";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Button } from "@material-ui/core";
 import styles from "@/styles/login.module.css";
 
-function InOutForm({ theme }) {
+function InOutForm({ theme, submitButton }) {
   return (
     <Box
       component="form"
@@ -13,6 +12,9 @@ function InOutForm({ theme }) {
       noValidate
       autoComplete="off"
     >
+      {submitButton == "Sign Up" ? (
+        <InputText label="First Name" variant="standard" theme={theme} />
+      ) : null}
       <InputText label="Email" variant="standard" theme={theme} />
       <InputText label="Password" variant="standard" theme={theme} />
       <Button
@@ -24,7 +26,7 @@ function InOutForm({ theme }) {
           },
         }}
       >
-        Login
+        {submitButton}
       </Button>
     </Box>
   );

@@ -30,8 +30,8 @@ const Login = () => {
         style={{ backgroundColor: theme.palette.third.main }}
       >
         <div className={styles.form}>
-          <h1 style={{ color: theme.palette.third.contrastText }}>SignUp</h1>
-          <InOutForm theme={theme} />
+          <h1 style={{ color: theme.palette.third.contrastText }}>Sign Up</h1>
+          <InOutForm theme={theme} submitButton="Sign Up" />
         </div>
         <div className={styles.imgContainer}>
           <Image

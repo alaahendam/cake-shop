@@ -31,7 +31,7 @@ const Login = () => {
       >
         <div className={styles.form}>
           <h1>Login</h1>
-          <InOutForm theme={theme} />
+          <InOutForm theme={theme} submitButton="Login" />
         </div>
         <div className={styles.imgContainer}>
           <Image
