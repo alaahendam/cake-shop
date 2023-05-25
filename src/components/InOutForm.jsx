@@ -1,38 +1,31 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
+import InputText from "./InputText";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Button } from "@material-ui/core";
+import styles from "@/styles/login.module.css";
 
 function InOutForm({ theme }) {
   return (
     <Box
       component="form"
-      sx={{
-        "& > :not(style)": { m: 1, width: "25ch" },
-      }}
+      className={styles.inOutForm}
       noValidate
       autoComplete="off"
     >
-      <TextField
-        id="standard-basic"
-        label="Standard"
-        variant="standard"
-        InputLabelProps={{
-          sx: {
-            color: theme.palette.primary.main,
-          },
-        }}
+      <InputText label="Email" variant="standard" theme={theme} />
+      <InputText label="Password" variant="standard" theme={theme} />
+      <Button
         sx={{
-          borderBottom: `1px solid ${theme.palette.primary.main}`,
-          ".css-a6v7lc-MuiInputBase-root-MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before ":
-            {
-              borderBottom: `1px solid ${theme.palette.primary.main}`,
-            },
-          ".css-a6v7lc-MuiInputBase-root-MuiInput-root:before": {
-            borderBottom: `1px solid ${theme.palette.primary.main}`,
+          color: theme.palette.secondary.contrastText,
+          backgroundColor: theme.palette.secondary.main,
+          "&:hover": {
+            backgroundColor: theme.palette.secondary.main,
           },
         }}
-      />
+      >
+        Login
+      </Button>
     </Box>
   );
 }

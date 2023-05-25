@@ -30,6 +30,7 @@ const Login = () => {
         style={{ backgroundColor: theme.palette.third.main }}
       >
         <div className={styles.form}>
+          <h1>Login</h1>
           <InOutForm theme={theme} />
         </div>
         <div className={styles.imgContainer}>
