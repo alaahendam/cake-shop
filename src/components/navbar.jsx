@@ -157,6 +157,9 @@ function ResponsiveAppBar() {
                     <Link href={`/${page.toLocaleLowerCase()}`}>{page}</Link>
                   </Button>
                 ))}
+                <Button sx={{ my: 2, display: "block" }}>
+                  <Link href={`/signup`}>Sign Up</Link>
+                </Button>
               </Menu>
             </Box>
           </Toolbar>
