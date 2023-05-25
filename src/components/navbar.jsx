@@ -64,7 +64,7 @@ function ResponsiveAppBar() {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppBar position="fixed" style={{ height: "80px" }}>
+      <AppBar position="fixed" style={{ height: "80px" }} elevation={0}>
         <Container maxWidth="xl" sx={{ height: "100%" }}>
           <Toolbar
             disableGutters
