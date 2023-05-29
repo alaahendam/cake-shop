@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import styles from "@/styles/login.module.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { pink, green } from "@mui/material/colors";
@@ -21,9 +22,12 @@ const theme = createTheme({
       contrastText: pink[700],
     },
   },
+  typography: {
+    fontFamily: "Noto Serif Display", // Replace with your desired font family
+  },
 });
 
-const Login = () => {
+const SignUp = () => {
   return (
     <ThemeProvider theme={theme}>
       <div
@@ -46,6 +50,7 @@ const Login = () => {
             }}
           >
             <Image
+              priority
               src="/images/signupCake2.png"
               alt="Example Image"
               width={400}
@@ -59,4 +64,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;

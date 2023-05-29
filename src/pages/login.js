@@ -13,13 +13,16 @@ const theme = createTheme({
       contrastText: "#FFFFFF",
     },
     secondary: {
-      main: "#ab9178",
+      main: "#d4b291",
       contrastText: pink[700],
     },
     third: {
       main: pink[700],
       contrastText: "#FFFFFF",
     },
+  },
+  typography: {
+    fontFamily: "Noto Serif Display", // Replace with your desired font family
   },
 });
 
@@ -31,7 +34,7 @@ const Login = () => {
         style={{ backgroundColor: theme.palette.third.main }}
       >
         <div className={styles.form}>
-          <h1>Login</h1>
+          <h1>Log in</h1>
           <InOutForm theme={theme} submitButton="Login" />
         </div>
         <div className={styles.imgContainer}>

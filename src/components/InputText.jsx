@@ -23,6 +23,8 @@ const InputText = ({ label, variant, theme, error, type, control, name }) => {
             InputLabelProps={{
               sx: {
                 color: theme.palette.primary.main,
+                fontFamily: theme.typography.fontFamily,
+                fontWeight: 500,
               },
             }}
             sx={{
@@ -38,6 +40,8 @@ const InputText = ({ label, variant, theme, error, type, control, name }) => {
               ".css-a6v7lc-MuiInputBase-root-MuiInput-root:before": {
                 borderBottom: `1px solid ${theme.palette.primary.main}`,
               },
+              fontFamily: theme.typography.fontFamily,
+              fontWeight: 500,
             }}
           />
         )}

@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useCallback } from "react";
+import dynamic from "next/dynamic";
 import { useForm, Controller } from "react-hook-form";
 import Box from "@mui/material/Box";
 import InputText from "./InputText";
@@ -7,11 +8,41 @@ import { motion } from "framer-motion";
 import styles from "@/styles/login.module.css";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
-
+import API from "../utilities/api";
+const LoginSocialGoogle = dynamic(
+  () =>
+    import("reactjs-social-login").then((module) => module.LoginSocialGoogle),
+  { ssr: false }
+);
+const LoginSocialFacebook = dynamic(
+  () =>
+    import("reactjs-social-login").then((module) => module.LoginSocialFacebook),
+  { ssr: false }
+);
 function InOutForm({ theme, submitButton }) {
   const AnimatedButton = motion(Button);
   const { handleSubmit, control, reset } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (formData) => {
+    try {
+      if (submitButton == "Sign Up") {
+        const { data } = await API.post("users/signup", formData);
+        console.log(data);
+      } else {
+        console.log("login");
+      }
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
+  // const onLoginStart = useCallback(() => {
+  //   alert("login start");
+  // }, []);
+
+  const onLogoutSuccess = useCallback(() => {
+    setProfile(null);
+    setProvider("");
+    alert("logout success");
+  }, []);
   return (
     <Box
       component="form"
@@ -57,6 +88,8 @@ function InOutForm({ theme, submitButton }) {
           "&:hover": {
             backgroundColor: theme.palette.secondary.main,
           },
+          fontFamily: theme.typography.fontFamily,
+          fontWeight: 500,
         }}
         type="submit"
       >
@@ -71,10 +104,42 @@ function InOutForm({ theme, submitButton }) {
         }}
       >
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }}>
-          <FacebookIcon sx={{ cursor: "pointer", fontSize: "35px" }} />
+          <LoginSocialFacebook
+            isOnlyGetToken
+            appId={process.env.REACT_APP_FB_APP_ID || "270937368714202"}
+            //onLoginStart={onLoginStart}
+            onResolve={({ provider, data }) => {
+              console.log(provider);
+              console.log(data);
+            }}
+            onReject={(err) => {
+              console.log(err);
+            }}
+          >
+            <FacebookIcon sx={{ cursor: "pointer", fontSize: "38px" }} />
+          </LoginSocialFacebook>
         </motion.div>
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }}>
-          <GoogleIcon sx={{ cursor: "pointer", fontSize: "35px" }} />
+          {typeof window !== "undefined" && (
+            <LoginSocialGoogle
+              //isOnlyGetToken
+              client_id={
+                process.env.REACT_APP_FB_APP_ID ||
+                "1031101558686-acqpgig5st4ujs9qteudor15afcedbke.apps.googleusercontent.com"
+              }
+              scope="profile email"
+              //onLoginStart={onLoginStart}
+              onResolve={({ provider, data }) => {
+                console.log(provider);
+                console.log(data);
+              }}
+              onReject={(err) => {
+                console.log(err);
+              }}
+            >
+              <GoogleIcon sx={{ cursor: "pointer", fontSize: "35px" }} />
+            </LoginSocialGoogle>
+          )}
         </motion.div>
       </div>
     </Box>

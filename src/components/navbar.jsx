@@ -33,6 +33,7 @@ const theme = createTheme({
           padding: "8px 16px",
           borderRadius: "4px",
           color: "white",
+          fontFamily: "Noto Serif Display",
           "&:hover": {
             backgroundColor: "transparent",
           },
@@ -148,20 +149,28 @@ function ResponsiveAppBar() {
                 }}
               >
                 {pages.map((page) => (
-                  <Button
+                  <IconButton
                     key={page}
-                    sx={{ my: 2, display: "block" }}
+                    sx={{
+                      my: 2,
+                      display: "block",
+                      color: theme.palette.primary.main,
+                    }}
                     onClick={() => router.push(`/${page.toLocaleLowerCase()}`)}
                   >
                     {page}
-                  </Button>
+                  </IconButton>
                 ))}
-                <Button
-                  sx={{ my: 2, display: "block" }}
+                <IconButton
+                  sx={{
+                    my: 2,
+                    display: "block",
+                    color: theme.palette.primary.main,
+                  }}
                   onClick={() => router.push("/signup")}
                 >
                   Sign Up
-                </Button>
+                </IconButton>
               </Menu>
             </Box>
           </Toolbar>
