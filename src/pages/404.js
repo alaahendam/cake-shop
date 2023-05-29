@@ -1,8 +1,10 @@
 import styles from "@/styles/404.module.css";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { Button } from "@material-ui/core";
 import { pink } from "@material-ui/core/colors";
 export default function Custom404() {
+  const router = useRouter();
   return (
     <div className={styles.main}>
       <div
@@ -23,7 +25,10 @@ export default function Custom404() {
         />
         <p>4</p>
       </div>
-      <Button sx={{ color: pink[500], border: `1px solid ${pink[500]}` }}>
+      <Button
+        sx={{ color: pink[500], border: `1px solid ${pink[500]}` }}
+        onClick={() => router.back()}
+      >
         Go Back
       </Button>
     </div>
