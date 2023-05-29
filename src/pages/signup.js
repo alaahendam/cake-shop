@@ -77,7 +77,7 @@ const SignUp = () => {
               Shop
             </AnimatedButton>
           </div>
-          <InOutForm theme={theme} submitButton="Sign Up" />
+          <InOutForm theme={theme} submitButton="Sign Up" role={role} />
         </div>
         <div className={styles.imgContainer}>
           <motion.div

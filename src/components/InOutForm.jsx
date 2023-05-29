@@ -19,12 +19,15 @@ const LoginSocialFacebook = dynamic(
     import("reactjs-social-login").then((module) => module.LoginSocialFacebook),
   { ssr: false }
 );
-function InOutForm({ theme, submitButton }) {
+function InOutForm({ theme, submitButton, role }) {
   const AnimatedButton = motion(Button);
   const { handleSubmit, control, reset } = useForm();
   const onSubmit = async (formData) => {
+    console.log(formData);
     try {
       if (submitButton == "Sign Up") {
+        formData.role = role;
+        formData.type = "normal";
         const { data } = await API.post("users/signup", formData);
         console.log(data);
       } else {
@@ -53,16 +56,16 @@ function InOutForm({ theme, submitButton }) {
     >
       {submitButton == "Sign Up" ? (
         <InputText
-          required
+          required={true}
           label="First Name"
           variant="standard"
           theme={theme}
           control={control}
-          name="firstName"
+          name="fName"
         />
       ) : null}
       <InputText
-        required
+        required={true}
         label="Email"
         variant="standard"
         theme={theme}
@@ -70,7 +73,7 @@ function InOutForm({ theme, submitButton }) {
         name="email"
       />
       <InputText
-        required
+        required={true}
         label="Password"
         variant="standard"
         theme={theme}

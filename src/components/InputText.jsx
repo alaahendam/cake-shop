@@ -4,7 +4,16 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 
-const InputText = ({ label, variant, theme, error, type, control, name }) => {
+const InputText = ({
+  label,
+  variant,
+  theme,
+  error,
+  type,
+  control,
+  name,
+  required,
+}) => {
   const [visibility, setVisibility] = useState(true);
 
   return (
@@ -15,6 +24,7 @@ const InputText = ({ label, variant, theme, error, type, control, name }) => {
         defaultValue=""
         render={({ field }) => (
           <TextField
+            required
             {...field}
             id={name}
             label={label}
