@@ -39,7 +39,7 @@ function InOutForm({ theme, submitButton, role }) {
             loading: "Loading",
             success: (data) => {
               setLoadingLogin(false);
-              return `${data?.data?.mesg}`;
+              return `${data?.data?.msg}`;
             },
             error: (data) => {
               setLoadingLogin(false);
