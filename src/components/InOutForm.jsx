@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import dynamic from "next/dynamic";
 import { useForm, Controller } from "react-hook-form";
 import Box from "@mui/material/Box";
@@ -9,6 +9,9 @@ import styles from "@/styles/login.module.css";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
 import API from "../utilities/api";
+import CircularProgress from "@mui/material/CircularProgress";
+// import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 const LoginSocialGoogle = dynamic(
   () =>
     import("reactjs-social-login").then((module) => module.LoginSocialGoogle),
@@ -20,23 +23,78 @@ const LoginSocialFacebook = dynamic(
   { ssr: false }
 );
 function InOutForm({ theme, submitButton, role }) {
+  const [loadingLogin, setLoadingLogin] = useState(false);
   const AnimatedButton = motion(Button);
   const { handleSubmit, control, reset } = useForm();
   const onSubmit = async (formData) => {
     console.log(formData);
+    setLoadingLogin(true);
     try {
-      if (submitButton == "Sign Up") {
+      if (submitButton === "Sign Up") {
         formData.role = role;
         formData.type = "normal";
-        const { data } = await API.post("users/signup", formData);
-        console.log(data);
+        toast.promise(
+          API.post("users/signup", formData),
+          {
+            loading: "Loading",
+            success: (data) => {
+              setLoadingLogin(false);
+              return `${data?.data?.mesg}`;
+            },
+            error: (data) => {
+              setLoadingLogin(false);
+              return `${
+                data?.response?.data?.mesg
+                  ? data?.response?.data?.mesg
+                  : data?.response?.data?.errors?.map((error) => error.msg)
+              }`;
+            },
+          },
+          {
+            style: {
+              minWidth: "250px",
+            },
+            success: {
+              duration: 5000,
+              icon: "🔥",
+            },
+          }
+        );
       } else {
-        console.log("login");
+        formData.role = role;
+        formData.type = "normal";
+        const response = await toast.promise(
+          API.post("users/signup", formData),
+          {
+            pending: "Promise is pending",
+            success: {
+              render({ data }) {
+                return `${data?.data?.mesg}`;
+              },
+            },
+            error: {
+              render({ data }) {
+                return `${
+                  data?.response?.data?.mesg
+                    ? data?.response?.data?.mesg
+                    : data?.response?.data?.errors?.map((error) => error.msg)
+                }`;
+              },
+            },
+          }
+        );
+        setLoadingLogin(false);
       }
     } catch (error) {
-      console.log(error.response.data);
+      setLoadingLogin(false);
+      if (error.response && error.response.data) {
+        console.log(error.response.data);
+      } else {
+        console.log(error);
+      }
     }
   };
+
   // const onLoginStart = useCallback(() => {
   //   alert("login start");
   // }, []);
@@ -85,6 +143,7 @@ function InOutForm({ theme, submitButton, role }) {
       <AnimatedButton
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.99 }}
+        disabled={loadingLogin}
         sx={{
           color: theme.palette.secondary.contrastText,
           backgroundColor: theme.palette.secondary.main,
@@ -96,7 +155,20 @@ function InOutForm({ theme, submitButton, role }) {
         }}
         type="submit"
       >
-        {submitButton}
+        {loadingLogin ? (
+          <CircularProgress
+            style={{
+              color: theme.palette.secondary.contrastText,
+              width: "26px",
+              height: "26px",
+            }}
+            disableShrink
+          />
+        ) : (
+          submitButton
+        )}
+
+        {/* {submitButton} */}
       </AnimatedButton>
       <div
         style={{
