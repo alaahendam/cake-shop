@@ -47,6 +47,9 @@ const Login = () => {
               repeatType: "loop",
               ease: "easeInOut",
             }}
+            style={{
+              position: "fixed",
+            }}
           >
             <Image
               src="/images/loginCake.webp"

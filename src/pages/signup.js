@@ -89,6 +89,9 @@ const SignUp = () => {
               repeatType: "loop",
               ease: "easeInOut",
             }}
+            style={{
+              position: "fixed",
+            }}
           >
             <Image
               priority

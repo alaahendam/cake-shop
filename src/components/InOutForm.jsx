@@ -39,13 +39,15 @@ function InOutForm({ theme, submitButton, role }) {
             loading: "Loading",
             success: (data) => {
               setLoadingLogin(false);
+              console.log(data);
               return `${data?.data?.msg}`;
             },
             error: (data) => {
               setLoadingLogin(false);
+              console.log(data);
               return `${
-                data?.response?.data?.mesg
-                  ? data?.response?.data?.mesg
+                data?.response?.data?.msg
+                  ? data?.response?.data?.msg
                   : data?.response?.data?.errors?.map((error) => error.msg)
               }`;
             },
@@ -61,29 +63,36 @@ function InOutForm({ theme, submitButton, role }) {
           }
         );
       } else {
-        formData.role = role;
         formData.type = "normal";
-        const response = await toast.promise(
-          API.post("users/signup", formData),
+        toast.promise(
+          API.post("users/login", formData),
           {
-            pending: "Promise is pending",
-            success: {
-              render({ data }) {
-                return `${data?.data?.mesg}`;
-              },
+            loading: "Loading",
+            success: (data) => {
+              setLoadingLogin(false);
+              console.log(data);
+              return `${data?.data?.msg}`;
             },
-            error: {
-              render({ data }) {
-                return `${
-                  data?.response?.data?.mesg
-                    ? data?.response?.data?.mesg
-                    : data?.response?.data?.errors?.map((error) => error.msg)
-                }`;
-              },
+            error: (data) => {
+              setLoadingLogin(false);
+              console.log(data);
+              return `${
+                data?.response?.data?.msg
+                  ? data?.response?.data?.msg
+                  : data?.response?.data?.errors?.map((error) => error.msg)
+              }`;
+            },
+          },
+          {
+            style: {
+              minWidth: "250px",
+            },
+            success: {
+              duration: 5000,
+              icon: "🔥",
             },
           }
         );
-        setLoadingLogin(false);
       }
     } catch (error) {
       setLoadingLogin(false);
