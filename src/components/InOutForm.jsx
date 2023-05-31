@@ -10,8 +10,9 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
 import API from "../utilities/api";
 import CircularProgress from "@mui/material/CircularProgress";
-// import { toast } from "react-toastify";
 import toast from "react-hot-toast";
+import { useSelector, useDispatch } from "react-redux";
+import { addLoginUser } from "@/redux/features/user";
 const LoginSocialGoogle = dynamic(
   () =>
     import("reactjs-social-login").then((module) => module.LoginSocialGoogle),
@@ -23,6 +24,7 @@ const LoginSocialFacebook = dynamic(
   { ssr: false }
 );
 function InOutForm({ theme, submitButton, role }) {
+  const dispatch = useDispatch();
   const [loadingLogin, setLoadingLogin] = useState(false);
   const AnimatedButton = motion(Button);
   const { handleSubmit, control, reset } = useForm();
@@ -71,6 +73,7 @@ function InOutForm({ theme, submitButton, role }) {
             success: (data) => {
               setLoadingLogin(false);
               console.log(data);
+              dispatch(addLoginUser(data?.data));
               return `${data?.data?.msg}`;
             },
             error: (data) => {

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Link from "next/link";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -14,6 +14,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { green, pink } from "@mui/material/colors";
 import { useRouter } from "next/router";
+import { useSelector, useDispatch } from "react-redux";
 
 const theme = createTheme({
   palette: {
@@ -46,17 +47,20 @@ const theme = createTheme({
 const pages = ["Products", "About", "Blog", "Contact", "Login"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-function ResponsiveAppBar() {
+function NavBar() {
+  console.log("NavBar1 rendered");
+  // const user = useSelector((state) => state.user.user);
+  // console.log(user);
   const router = useRouter();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
-  const handleOpenNavMenu = (event) => {
+  const handleOpenNavMenu = React.useCallback((event) => {
     setAnchorElNav(event.currentTarget);
-  };
+  }, []);
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = React.useCallback(() => {
     setAnchorElNav(null);
-  };
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -79,11 +83,11 @@ function ResponsiveAppBar() {
               {pages.map((page) => (
                 <IconButton
                   key={page}
-                  sx={{
-                    fontSize: "17px",
-                  }}
+                  sx={{ fontSize: "17px" }}
+                  component={Link}
+                  href={`/${page.toLocaleLowerCase()}`}
                 >
-                  <Link href={`/${page.toLocaleLowerCase()}`}>{page}</Link>
+                  {page}
                 </IconButton>
               ))}
             </Box>
@@ -95,11 +99,11 @@ function ResponsiveAppBar() {
               }}
             >
               <IconButton
-                sx={{
-                  fontSize: "17px",
-                }}
+                sx={{ fontSize: "17px" }}
+                component={Link}
+                href="/signup"
               >
-                <Link href="/signup">Sign Up</Link>
+                Sign Up
               </IconButton>
               <IconButton
                 sx={{
@@ -179,4 +183,4 @@ function ResponsiveAppBar() {
     </ThemeProvider>
   );
 }
-export default ResponsiveAppBar;
+export default React.memo(NavBar);

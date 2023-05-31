@@ -1,12 +1,18 @@
-
+import NavBar from "./navbar";
+import TestNavBar from "./test";
 const Layout = ({ children }) => {
   return (
-    <div
-      style={{
-        paddingTop: "80px",
-      }}
-    >
-      {children}
+    <div>
+      <NavBar />
+
+      <div
+        style={{
+          paddingTop: "80px",
+        }}
+      >
+        <TestNavBar />
+        {children}
+      </div>
     </div>
   );
 };
