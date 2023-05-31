@@ -103,14 +103,7 @@ body {
       url("../../public/fonts/Hinzatis/@font-face/942d5ae1007dc34dea1e95ad2e310613.svg#Hinzatis")
       format("svg"); /* iOS 4.1- */
 }
-.demo {
-  font-family: "Hinzatis" !important;
-  font-size: 40px;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  /* background-color: red;
-  color: white; */
-}
+
 /* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
