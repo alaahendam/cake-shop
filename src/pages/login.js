@@ -52,6 +52,7 @@ const Login = () => {
             }}
           >
             <Image
+              priority
               src="/images/loginCake.webp"
               alt="Example Image"
               width={400}
