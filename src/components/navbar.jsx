@@ -15,8 +15,10 @@ const NavBar = () => {
         Glorious
       </Link>
       <div className={styles.middleLinks}>
-        {pages?.map((page) => (
-          <Link href={`${page.toLocaleLowerCase()}`}>{page}</Link>
+        {pages?.map((page, index) => (
+          <Link href={`${page.toLocaleLowerCase()}`} key={index}>
+            {page}
+          </Link>
         ))}
       </div>
       <div className={styles.rightLinks}>
