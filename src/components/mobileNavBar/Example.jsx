@@ -19,7 +19,6 @@ const sidebar = {
   closed: {
     clipPath: "circle(30px at 208px 40px)",
     transition: {
-      delay: 0.1,
       type: "spring",
       stiffness: 400,
       damping: 40,
@@ -39,6 +38,9 @@ export const MobileNavBar = () => {
       custom={height}
       ref={containerRef}
       className={styles.mobileNavBar}
+      style={{
+        height: isOpen ? "100vh" : "12vh",
+      }}
     >
       <motion.div className={styles.background} variants={sidebar} />
       <Navigation isOpen={isOpen} />
