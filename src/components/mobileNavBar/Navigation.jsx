@@ -12,12 +12,24 @@ const variants = {
   },
 };
 
-export const Navigation = () => (
-  <motion.ul variants={variants} className={styles.ul}>
-    {itemIds.map((item, index) => (
-      <MenuItem i={index} key={index} item={item} />
-    ))}
-  </motion.ul>
+export const Navigation = ({ isOpen }) => (
+  <motion.div
+    variants={variants}
+    className={styles.ul}
+    style={{
+      display: isOpen ? "flex" : "none",
+    }}
+  >
+    <div
+      style={{
+        width: "100%",
+      }}
+    >
+      {itemIds.map((item, index) => (
+        <MenuItem key={index} item={item} />
+      ))}
+    </div>
+  </motion.div>
 );
 
-const itemIds = ["Products", "About", "Blog", "Contact", "Login"];
+const itemIds = ["Products", "About", "Blog", "Contact"];

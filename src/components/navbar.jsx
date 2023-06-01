@@ -33,9 +33,10 @@ const NavBar = () => {
           <SearchIcon />
         </Link>
       </div>
-      <div className={styles.mobileNavbarDisplay}>
+      <MobileNavBar />
+      {/* <div className={styles.mobileNavbarDisplay}>
         <MobileNavBar />
-      </div>
+      </div> */}
     </nav>
   );
 };
