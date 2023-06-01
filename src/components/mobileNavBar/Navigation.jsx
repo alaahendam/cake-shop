@@ -29,6 +29,14 @@ export const Navigation = ({ isOpen }) => (
         <MenuItem key={index} item={item} />
       ))}
     </div>
+    <div
+      style={{
+        width: "100%",
+      }}
+    >
+      <MenuItem item="Login" />
+      <MenuItem item="SignUp" />
+    </div>
   </motion.div>
 );
 
