@@ -7,7 +7,7 @@ import "@fontsource/noto-serif-display/400-italic.css";
 import { Provider } from "react-redux";
 import { store } from "../redux/store";
 import { Toaster } from "react-hot-toast";
-import navbar from "@/components/navbar";
+import NavBar from "@/components/navbar";
 export default function App({ Component, pageProps }) {
   useEffect(() => {
     console.log("this app.js");
