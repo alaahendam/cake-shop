@@ -1,7 +1,8 @@
+import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-const PrivateRoute = (WrappedComponent, role) => {
+const PrivateRoute = (WrappedComponent, role, redirect = "/404") => {
   const hocComponent = (props) => {
     const router = useRouter();
     const loginUser = useSelector((state) => state.user.user);
@@ -15,7 +16,7 @@ const PrivateRoute = (WrappedComponent, role) => {
       } else if (!loginUser) {
         router.replace("/login"); // Redirect to login page if not authenticated
       } else if (loginUser.role != role) {
-        router.replace("/404");
+        router.replace(redirect);
       } else if (loginUser.role == role) {
         setPassed(true);
       }

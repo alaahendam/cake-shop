@@ -67,4 +67,4 @@ const Login = () => {
   );
 };
 
-export default PrivateRoute(Login, "sign");
+export default PrivateRoute(Login, "sign", "/");

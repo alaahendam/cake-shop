@@ -74,7 +74,6 @@ function InOutForm({ theme, submitButton, role }) {
             loading: "Loading",
             success: (data) => {
               setLoadingLogin(false);
-              router.replace("/");
               dispatch(addLoginUser(data?.data));
               return `${data?.data?.msg}`;
             },

@@ -21,7 +21,7 @@ const variants = {
 
 //const colors = ["#FF008C", "#D309E1", "#9C1AFF", "#7700FF", "#4400FF"];
 
-export const MenuItem = ({ item }) => {
+export const CustomMenuItem = ({ item, route }) => {
   const style = { border: `1px solid gray` };
   return (
     <motion.div
@@ -34,9 +34,9 @@ export const MenuItem = ({ item }) => {
       <Link
         className={styles["text-placeholder"]}
         style={style}
-        href={`${item.toLocaleLowerCase()}`}
+        href={`${route.toLocaleLowerCase()}`}
       >
-        {item}
+        {route}
       </Link>
     </motion.div>
   );

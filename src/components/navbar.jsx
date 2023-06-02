@@ -5,10 +5,31 @@ import { MobileNavBar } from "./mobileNavBar/Example";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
 import SearchIcon from "@mui/icons-material/Search";
-import { useSelector } from "react-redux";
+import { IconButton } from "@material-ui/core";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import { useSelector, useDispatch } from "react-redux";
+import { addLoginUser } from "@/redux/features/user";
 const NavBar = () => {
-  const pages = ["Products", "About", "Blog", "Contact", "Login"];
+  const pages = ["Products", "About", "Blog", "Contact"];
   const loginUser = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleLogOut = () => {
+    setAnchorEl(null);
+    localStorage.clear();
+    dispatch(addLoginUser(null));
+  };
   return (
     <nav className={styles.navBar}>
       <Link href="/" className={styles.logo}>
@@ -20,18 +41,56 @@ const NavBar = () => {
             {page}
           </Link>
         ))}
+        <Link href="/signup">
+          <SearchIcon />
+        </Link>
       </div>
-      <div className={styles.rightLinks}>
-        <Link href="/signup">Sign Up</Link>
-        <Link href="/signup">ENG</Link>
+      <div
+        className={styles.rightLinks}
+        style={{ width: loginUser ? "15%" : "25%" }}
+      >
+        {loginUser ? null : <Link href="/signup">Sign Up</Link>}
+        {loginUser ? null : <Link href="/login">Log In</Link>}
         <Link href="/signup">
           <Badge badgeContent={4} color="success">
             <ShoppingCartIcon />
           </Badge>
         </Link>
-        <Link href="/signup">
-          <SearchIcon />
-        </Link>
+        <Link href="/signup">ENG</Link>
+
+        {loginUser && (
+          <div>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleClose}>Profile</MenuItem>
+              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
+            </Menu>
+          </div>
+        )}
       </div>
 
       <div className={styles.mobileNavbarDisplay}>
