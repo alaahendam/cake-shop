@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 import { useForm, Controller } from "react-hook-form";
 import Box from "@mui/material/Box";
 import InputText from "./InputText";
@@ -25,6 +26,7 @@ const LoginSocialFacebook = dynamic(
 );
 function InOutForm({ theme, submitButton, role }) {
   const dispatch = useDispatch();
+  const router = useRouter();
   const [loadingLogin, setLoadingLogin] = useState(false);
   const AnimatedButton = motion(Button);
   const { handleSubmit, control, reset } = useForm();
@@ -72,7 +74,7 @@ function InOutForm({ theme, submitButton, role }) {
             loading: "Loading",
             success: (data) => {
               setLoadingLogin(false);
-              console.log(data);
+              router.replace("/");
               dispatch(addLoginUser(data?.data));
               return `${data?.data?.msg}`;
             },

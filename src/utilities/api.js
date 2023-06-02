@@ -10,9 +10,9 @@ const request = axios.create({
 });
 
 request.interceptors.request.use((config) => {
-  let token = localStorage.getItem("token");
+  let token = localStorage.getItem("gloriousToken");
   if (token) {
-    config.headers["x-access-token"] = `${token}`;
+    config.headers["Authorization"] = `authorization ${token}`;
   }
   return config;
 });

@@ -5,10 +5,10 @@ import { MobileNavBar } from "./mobileNavBar/Example";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
 import SearchIcon from "@mui/icons-material/Search";
-
+import { useSelector } from "react-redux";
 const NavBar = () => {
-  console.log("this new navbar");
   const pages = ["Products", "About", "Blog", "Contact", "Login"];
+  const loginUser = useSelector((state) => state.user.user);
   return (
     <nav className={styles.navBar}>
       <Link href="/" className={styles.logo}>

@@ -8,10 +8,8 @@ import { Provider } from "react-redux";
 import { store } from "../redux/store";
 import { Toaster } from "react-hot-toast";
 import NavBar from "@/components/navbar";
+
 export default function App({ Component, pageProps }) {
-  useEffect(() => {
-    console.log("this app.js");
-  }, []);
   return (
     <div>
       <Provider store={store}>

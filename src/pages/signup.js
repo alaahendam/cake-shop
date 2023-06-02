@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import Image from "next/image";
 import InOutForm from "@/components/InOutForm";
 import { motion } from "framer-motion";
-
+import PrivateRoute from "@/utilities/privateRoute";
 const theme = createTheme({
   palette: {
     primary: {
@@ -108,4 +108,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default PrivateRoute(SignUp, "sign");

@@ -7,9 +7,11 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     addLoginUser: (state, action) => {
-      state.user = action.payload.user;
+      state.user = action.payload.user ? action.payload.user : action.payload;
       typeof window !== "undefined"
-        ? localStorage.setItem("gloriousToken", action.payload.token)
+        ? action.payload.token
+          ? localStorage.setItem("gloriousToken", action.payload.token)
+          : null
         : null;
     },
   },

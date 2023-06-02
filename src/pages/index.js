@@ -2,10 +2,11 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-
+import { useSelector } from "react-redux";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const loginUser = useSelector((state) => state.user.user);
   return (
     <>
       <Head>
@@ -16,6 +17,9 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <h1>Hello This is Glorious App</h1>
+        <h5>Your Name is : {loginUser?.fullName}</h5>
+        <h5>Your email is : {loginUser?.email}</h5>
+        <h5>Your are : {loginUser?.role}</h5>
       </main>
     </>
   );

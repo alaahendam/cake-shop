@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import Image from "next/image";
 import InOutForm from "@/components/InOutForm";
 import { motion } from "framer-motion";
+import PrivateRoute from "@/utilities/privateRoute";
 
 const theme = createTheme({
   palette: {
@@ -66,4 +67,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default PrivateRoute(Login, "sign");
