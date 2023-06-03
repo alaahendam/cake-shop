@@ -36,7 +36,7 @@ export const CustomMenuItem = ({ item, route }) => {
         style={style}
         href={`${route.toLocaleLowerCase()}`}
       >
-        {route}
+        {item}
       </Link>
     </motion.div>
   );

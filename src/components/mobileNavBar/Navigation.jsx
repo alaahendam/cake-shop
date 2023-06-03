@@ -1,4 +1,5 @@
 import * as React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { CustomMenuItem } from "./MenuItem";
 import styles from "@/styles/mobileNavBar.module.css";
@@ -61,17 +62,20 @@ export const Navigation = ({ isOpen }) => {
           style={{
             width: "100%",
             display: "flex",
+            flexDirection: "column",
             justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          <CustomMenuItem
-            item={
-              <Badge badgeContent={4} color="success">
-                <ShoppingCartIcon />
-              </Badge>
-            }
-            route="/shop"
-          />
+          <Link href="/shop">
+            <Badge badgeContent={4} color="success">
+              <ShoppingCartIcon
+                sx={{
+                  color: "#c2185b",
+                }}
+              />
+            </Badge>
+          </Link>
           <div>
             <IconButton
               size="large"
