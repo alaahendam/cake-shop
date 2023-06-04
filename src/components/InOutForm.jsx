@@ -33,10 +33,12 @@ function InOutForm({ theme, submitButton, role }) {
   const onSubmit = async (formData) => {
     console.log(formData);
     setLoadingLogin(true);
+    if (!formData.type) {
+      formData.type = "normal";
+    }
     try {
       if (submitButton === "Sign Up") {
         formData.role = role;
-        formData.type = "normal";
         toast.promise(
           API.post("users/signup", formData),
           {
@@ -67,12 +69,12 @@ function InOutForm({ theme, submitButton, role }) {
           }
         );
       } else {
-        formData.type = "normal";
         toast.promise(
           API.post("users/login", formData),
           {
             loading: "Loading",
             success: (data) => {
+              console.log(data);
               setLoadingLogin(false);
               dispatch(addLoginUser(data?.data));
               return `${data?.data?.msg}`;
@@ -220,6 +222,11 @@ function InOutForm({ theme, submitButton, role }) {
               onResolve={({ provider, data }) => {
                 console.log(provider);
                 console.log(data);
+                onSubmit({
+                  email: data.email,
+                  type: "social",
+                  fName: data.name,
+                });
               }}
               onReject={(err) => {
                 console.log(err);
