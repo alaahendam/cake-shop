@@ -39,7 +39,7 @@
   font-size: 50px;
 }
 .vertical-line {
-  width: 2px;
+  width: 1px;
   height: 100%; /* Adjust the height as needed */
   background-color: #a71b52; /* Change the color to your preference */
 }
@@ -80,9 +80,12 @@
     height: 50%;
   }
   .whyUsNumber span {
-    font-size: 35px;
+    font-size: 28px;
   }
   .whyUsNumber p {
-    font-size: 15px;
+    font-size: 12px;
+  }
+  .homeDiv button {
+    padding: 10px 15px;
   }
 }
