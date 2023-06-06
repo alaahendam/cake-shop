@@ -15,7 +15,7 @@ const NumberDisplay = ({ targetNumber, duration }) => {
   }, [targetNumber]);
 
   return (
-    <CountUp start={0} end={targetNumber} duration={duration} separator=".">
+    <CountUp start={0} end={500} duration={duration} separator=".">
       {({ countUpRef }) => <span ref={countUpRef} />}
     </CountUp>
   );
