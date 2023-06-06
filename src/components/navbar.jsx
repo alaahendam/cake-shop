@@ -11,7 +11,9 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { useSelector, useDispatch } from "react-redux";
 import { addLoginUser } from "@/redux/features/user";
+import { useRouter } from "next/router";
 const NavBar = () => {
+  const router = useRouter();
   const pages = ["Products", "About", "Blog", "Contact"];
   const loginUser = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
@@ -31,7 +33,15 @@ const NavBar = () => {
     dispatch(addLoginUser(null));
   };
   return (
-    <nav className={styles.navBar}>
+    <nav
+      className={styles.navBar}
+      style={{
+        backgroundColor:
+          router.pathname == "login" || router.pathname == "signup"
+            ? "#c2185b"
+            : "#a71b52",
+      }}
+    >
       <Link href="/" className={styles.logo}>
         Glorious
       </Link>
