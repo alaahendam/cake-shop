@@ -21,6 +21,7 @@
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.3",
     "framer-motion": "^10.12.16",
+    "i": "^0.3.7",
     "install": "^0.13.0",
     "next": "13.4.3",
     "npm": "^9.6.7",
@@ -32,6 +33,7 @@
     "react-redux": "^8.0.5",
     "react-select": "^5.7.3",
     "react-spring": "^9.7.1",
-    "reactjs-social-login": "^2.6.2"
+    "reactjs-social-login": "^2.6.2",
+    "use-count-up": "^3.0.1"
   }
 }
