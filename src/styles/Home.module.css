@@ -18,7 +18,8 @@
   color: white;
 }
 .homeDiv button {
-  padding: 10px 30px;
+  width: 130px;
+  height: 40px;
   border-radius: 7px;
   border: none;
   outline: none;
@@ -84,8 +85,5 @@
   }
   .whyUsNumber p {
     font-size: 12px;
-  }
-  .homeDiv button {
-    padding: 10px 15px;
   }
 }
