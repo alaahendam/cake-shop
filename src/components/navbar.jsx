@@ -37,7 +37,7 @@ const NavBar = () => {
       className={styles.navBar}
       style={{
         backgroundColor:
-          router.pathname == "login" || router.pathname == "signup"
+          router.pathname == "/login" || router.pathname == "/signup"
             ? "#c2185b"
             : "#a71b52",
       }}
@@ -81,6 +81,7 @@ const NavBar = () => {
               <AccountCircle />
             </IconButton>
             <Menu
+              disableScrollLock
               id="menu-appbar"
               anchorEl={anchorEl}
               anchorOrigin={{
