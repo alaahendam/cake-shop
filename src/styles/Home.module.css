@@ -79,4 +79,10 @@
     width: 100%;
     height: 50%;
   }
+  .whyUsNumber span {
+    font-size: 35px;
+  }
+  .whyUsNumber p {
+    font-size: 15px;
+  }
 }

@@ -29,7 +29,11 @@ export default function Home() {
                 metus luctus.
               </p>
             </div>
-            <div>
+            <div
+              style={{
+                display: "flex",
+              }}
+            >
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.99 }}
