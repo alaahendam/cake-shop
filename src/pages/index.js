@@ -36,6 +36,24 @@ export default function Home() {
       price: "950 AMD",
     },
   ];
+  const Cakes = [
+    {
+      path: "pastries.webp",
+      name: "Pastries",
+    },
+    {
+      path: "create.webp",
+      name: "Create",
+    },
+    {
+      path: "celebration.webp",
+      name: "Celebration",
+    },
+    {
+      path: "create.webp",
+      name: "Create",
+    },
+  ];
   return (
     <>
       <Head>
@@ -207,7 +225,37 @@ export default function Home() {
             </motion.div>
           ))}
         </div>
-        <div className={styles.bestSellersSection}></div>
+        <div className={`${styles.bestSellersSection} ${styles.dFlexRow}`}>
+          {Cakes.map((cake, index) => (
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.99 }}
+              key={index}
+              style={{
+                height: "80%",
+                position: "relative",
+                borderRadius: "7px",
+                marginLeft: "10px",
+              }}
+              className={
+                index === 0 ? styles.cakeTypeHeightF : styles.cakeTypeHeight
+              }
+            >
+              <Image
+                priority
+                src={`/images/${cake.path}`}
+                alt="Example Image"
+                width={300}
+                height={400}
+                className={styles["bestSellersSectionImg"]}
+              />
+              <div className={`${styles.bestSellersSectionName}`}>
+                <p>{cake.name}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+        <div className={`${styles.bestSellers} ${styles.dFlexRow}`}></div>
       </main>
     </>
   );

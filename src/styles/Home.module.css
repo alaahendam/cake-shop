@@ -74,8 +74,38 @@
   border-radius: 7px;
 }
 .bestSellersSection {
-  height: 50vh;
+  height: 60vh;
   background-color: #fff7f0;
+  padding: 0px 160px;
+}
+.bestSellersSectionImg {
+  width: 100%;
+  height: 100%;
+  border-radius: 7px;
+}
+.bestSellersSectionName {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.cakeTypeHeight {
+  width: 12%;
+}
+.cakeTypeHeightF {
+  width: 35%;
+}
+.bestSellersSectionName p {
+  transform: rotate(-90deg);
 }
 .dFlexColumn {
   display: flex;
@@ -128,5 +158,15 @@
   .cakeCard {
     width: 44%;
     height: 45%;
+  }
+  .bestSellersSection {
+    height: 40vh;
+    padding: 0px 20px;
+  }
+  .cakeTypeHeight {
+    width: 15%;
+  }
+  .cakeTypeHeightF {
+    width: 45%;
   }
 }
