@@ -175,11 +175,12 @@ export default function Home() {
             flexWrap: "wrap",
           }}
         >
-          {bestSellersCakes?.map((cake) => (
+          {bestSellersCakes?.map((cake, index) => (
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.99 }}
               className={styles.cakeCard}
+              key={index}
             >
               <Image
                 priority
