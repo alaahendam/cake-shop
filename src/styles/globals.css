@@ -114,14 +114,18 @@ body {
     )
     rgb(var(--background-start-rgb));
 } */
-
+img {
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
 a {
   color: inherit;
   text-decoration: none;
 }
 
-/* @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+@media only screen and (max-width: 600px) {
+  * {
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
   }
-} */
+}
