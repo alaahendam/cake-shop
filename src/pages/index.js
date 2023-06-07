@@ -3,13 +3,39 @@ import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { useSelector } from "react-redux";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, wrap } from "framer-motion";
 import NumberDisplay from "@/components/numberDisplay";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const loginUser = useSelector((state) => state.user.user);
+  const bestSellersCakes = [
+    {
+      path: "cheeseCake.jpg",
+      name: "cheese cake",
+      flavour: "Creamy",
+      price: "950 AMD",
+    },
+    {
+      path: "chocolateCake.jpg",
+      name: "chocolate cake",
+      flavour: "Creamy",
+      price: "750 AMD",
+    },
+    {
+      path: "hazelnutCake.jpg",
+      name: "hazelnut cake",
+      flavour: "Creamy",
+      price: "750 AMD",
+    },
+    {
+      path: "cheeseCake2.jpg",
+      name: "cheese cake",
+      flavour: "Creamy",
+      price: "950 AMD",
+    },
+  ];
   return (
     <>
       <Head>
@@ -109,8 +135,77 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className={styles.memorySection}></div>
-        <div className={styles.bestSellers}></div>
+        <div
+          className={`${styles.memorySection} ${styles.dFlexRow}`}
+          style={{
+            justifyContent: "space-around",
+          }}
+        >
+          <motion.div
+            initial={{ scale: 1 }}
+            animate={{ scale: [1, 1.03, 1] }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              repeatType: "loop",
+              ease: "easeInOut",
+            }}
+          >
+            <Image
+              priority
+              src="/images/strawberryCake.png"
+              alt="Example Image"
+              width={250}
+              height={250}
+              className={styles["image-3d"]}
+            />
+          </motion.div>
+          <div>
+            <h1>Unforgettable Moments</h1>
+            <p>
+              An Opportunity to see loved ones around a table even without an
+              occasion
+            </p>
+          </div>
+        </div>
+        <div
+          className={`${styles.bestSellers} ${styles.dFlexRow}`}
+          style={{
+            justifyContent: "space-evenly",
+            flexWrap: "wrap",
+          }}
+        >
+          {bestSellersCakes?.map((cake) => (
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.99 }}
+              className={styles.cakeCard}
+            >
+              <Image
+                priority
+                src={`/images/${cake.path}`}
+                alt="Example Image"
+                width={300}
+                height={400}
+                className={styles["cakeCardImg"]}
+              />
+              <div
+                style={{
+                  paddingLeft: "20px",
+                  display: "flex",
+                  height: "30%",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  color: "black",
+                }}
+              >
+                <h4>{cake.name}</h4>
+                <p>Flavour : {cake.flavour}</p>
+                <h4>{cake.price}</h4>
+              </div>
+            </motion.div>
+          ))}
+        </div>
         <div className={styles.bestSellersSection}></div>
       </main>
     </>

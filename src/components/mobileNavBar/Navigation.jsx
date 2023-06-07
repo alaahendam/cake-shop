@@ -95,7 +95,7 @@ export const Navigation = ({ isOpen }) => {
               anchorEl={anchorEl}
               anchorOrigin={{
                 vertical: "top",
-                horizontal: "right",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
