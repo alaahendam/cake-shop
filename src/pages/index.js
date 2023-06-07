@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import Image from "next/image";
 import { motion, wrap } from "framer-motion";
 import NumberDisplay from "@/components/numberDisplay";
-
+import Footer from "@/components/footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
@@ -255,7 +255,7 @@ export default function Home() {
             </motion.div>
           ))}
         </div>
-        <div className={`${styles.bestSellers} ${styles.dFlexRow}`}></div>
+        <Footer />
       </main>
     </>
   );

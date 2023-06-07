@@ -1,0 +1,75 @@
+.notification {
+  width: 100%;
+  height: 30vh;
+  background-color: #a71b52;
+}
+.notification input {
+  height: 40px;
+  outline: none;
+  border: none;
+  padding: 10px 10px;
+  margin-top: 20px;
+}
+.notification input[type="submit"] {
+  width: 170px;
+}
+.notification input[type="email"] {
+  width: 320px;
+}
+.info {
+  background-color: green;
+  position: relative;
+  width: 100%;
+  height: 40vh;
+}
+.info p {
+  margin-top: 5px;
+}
+.infoImgWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.infoBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #c2185b;
+  opacity: 0.8;
+}
+.vertical-line {
+  width: 2px;
+  height: 60%; /* Adjust the height as needed */
+  background-color: #a71b52; /* Change the color to your preference */
+}
+.dFlexColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.dFlexRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.contact {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 15%;
+  border-top: 2px solid #a71b52;
+}
+@media only screen and (max-width: 600px) {
+  .notification input[type="submit"] {
+    width: 120px;
+  }
+  .notification input[type="email"] {
+    width: 250px;
+  }
+}
