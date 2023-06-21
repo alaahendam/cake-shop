@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
@@ -6,10 +7,25 @@ import Image from "next/image";
 import { motion, wrap } from "framer-motion";
 import NumberDisplay from "@/components/numberDisplay";
 import Footer from "@/components/footer";
+import API from "../utilities/api";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const loginUser = useSelector((state) => state.user.user);
+  const [whyUsData, setWhyUsData] = useState({});
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await API.get("/orders/bestSellers");
+        setWhyUsData(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+    console.log("useEffect");
+  }, []);
+
   const bestSellersCakes = [
     {
       path: "cheeseCake.jpg",
@@ -138,17 +154,31 @@ export default function Home() {
             }}
           >
             <div className={styles.dFlexColumn}>
-              <NumberDisplay targetNumber={150} duration={5} />
+              <NumberDisplay targetNumber={whyUsData?.numOrders} duration={3} />
               <p>more products</p>
             </div>
             <div className={styles["vertical-line"]}></div>
             <div className={styles.dFlexColumn}>
-              <NumberDisplay targetNumber={2000} duration={5} />
+              <NumberDisplay
+                targetNumber={whyUsData?.users?.[0]?.num}
+                duration={3}
+              />
               <p>customers</p>
             </div>
             <div className={styles["vertical-line"]}></div>
             <div className={styles.dFlexColumn}>
-              <NumberDisplay targetNumber={10000} duration={5} />
+              <NumberDisplay
+                targetNumber={whyUsData?.users?.[2]?.num}
+                duration={3}
+              />
+              <p>company</p>
+            </div>
+            <div className={styles["vertical-line"]}></div>
+            <div className={styles.dFlexColumn}>
+              <NumberDisplay
+                targetNumber={whyUsData?.numProducts}
+                duration={3}
+              />
               <p>implemented orders</p>
             </div>
           </div>

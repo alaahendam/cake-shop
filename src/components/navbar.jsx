@@ -47,7 +47,7 @@ const NavBar = () => {
       </Link>
       <div className={styles.middleLinks}>
         {pages?.map((page, index) => (
-          <Link href={`${page.toLocaleLowerCase()}`} key={index}>
+          <Link href={`/${page.toLocaleLowerCase()}`} key={index}>
             {page}
           </Link>
         ))}
