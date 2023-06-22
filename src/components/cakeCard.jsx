@@ -14,7 +14,7 @@ const CakeCard = ({ info }) => {
     >
       <Image
         priority
-        src={`/images/cheeseCake.jpg`}
+        src={`/images/${info.img ? info.img : "cheeseCake.jpg"}`}
         alt="Example Image"
         width={300}
         height={400}

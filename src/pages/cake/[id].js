@@ -6,6 +6,8 @@ import Rating from "@mui/material/Rating";
 import Counter from "@/components/counter";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CakeInfoTabs from "@/components/cakeInfoTabs";
+import CustomCarousel from "@/components/carousel ";
+
 const Cake = () => {
   const router = useRouter();
   const date = new Date();
@@ -52,6 +54,7 @@ const Cake = () => {
         </div>
       </div>
       <CakeInfoTabs />
+      <CustomCarousel />
       <Footer />
     </div>
   );
