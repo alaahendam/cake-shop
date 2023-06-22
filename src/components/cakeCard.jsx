@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { useRouter } from "next/router";
 const CakeCard = ({ info }) => {
+  const router = useRouter();
   return (
     <motion.div
       className="w-full rounded-md shadow-lg shadow-pink-500/50 cursor-pointer"
       whileHover={{ scale: 1.009 }}
       whileTap={{ scale: 0.99 }}
+      onClick={() => router.push("/cake/3")}
     >
       <Image
         priority

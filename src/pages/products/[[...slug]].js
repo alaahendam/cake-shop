@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
 import CakeCard from "@/components/cakeCard";
+import Footer from "@/components/footer";
 const Products = () => {
   const router = useRouter();
   console.log(router);
@@ -14,15 +15,18 @@ const Products = () => {
     ingredients: JSON.stringify({ param1: "hahaha" }),
   };
   return (
-    <div className="container mx-auto p-4 md:px-24 md:py-12">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-10 ">
-        <CakeCard />
-        <CakeCard />
-        <CakeCard />
-        <CakeCard />
-        <CakeCard />
-        <CakeCard />
+    <div>
+      <div className="container mx-auto p-6 md:px-24 md:py-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-10 ">
+          <CakeCard />
+          <CakeCard />
+          <CakeCard />
+          <CakeCard />
+          <CakeCard />
+          <CakeCard />
+        </div>
       </div>
+      <Footer />
     </div>
   );
 };

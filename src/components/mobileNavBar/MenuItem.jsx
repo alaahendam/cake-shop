@@ -34,7 +34,7 @@ export const CustomMenuItem = ({ item, route }) => {
       <Link
         className={styles["text-placeholder"]}
         style={style}
-        href={`${route.toLocaleLowerCase()}`}
+        href={`/${route.toLocaleLowerCase()}`}
       >
         {item}
       </Link>

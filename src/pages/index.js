@@ -82,7 +82,9 @@ export default function Home() {
         <div className={styles.home}>
           <div className={styles.homeDiv}>
             <div>
-              <h1>Create greate memories with love and sweetness</h1>
+              <h1 className="text-4xl">
+                Create greate memories with love and sweetness
+              </h1>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
                 sed neque accumsan, gravida velit a, semper ipsum. Proin at
@@ -100,6 +102,7 @@ export default function Home() {
                 style={{
                   backgroundColor: "pink",
                   color: "#a71b52",
+                  fontSize: "80%",
                 }}
               >
                 ORDER NOW
@@ -111,6 +114,7 @@ export default function Home() {
                   backgroundColor: "transparent",
                   color: "white",
                   border: "1px solid white",
+                  fontSize: "80%",
                 }}
               >
                 LEARN MORE

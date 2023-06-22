@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import { useRef } from "react";
 import styles from "@/styles/mobileNavBar.module.css";
@@ -33,11 +35,17 @@ const sidebar = {
 };
 
 export const MobileNavBar = () => {
-  const [isOpen, toggleOpen] = useCycle(false, true);
+  const router = useRouter();
+  const [isOpen, setOpen] = useState(false);
+  const toggleOpen = () => {
+    setOpen(!isOpen);
+  };
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
   const loginUser = useSelector((state) => state.user.user);
-
+  useEffect(() => {
+    setOpen(false);
+  }, [router]);
   return (
     <motion.nav
       initial={false}
