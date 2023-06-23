@@ -50,8 +50,8 @@ const CustomCarousel = ({ props }) => {
         infinite={true}
         itemClass="mb-10"
       >
-        {imageUrls.map((url) => (
-          <div className="mr-2 pb-5">
+        {imageUrls.map((url, index) => (
+          <div className="mr-2 pb-5" key={index}>
             <CakeCard info={{ img: url }} />
           </div>
         ))}

@@ -10,12 +10,13 @@ const CakeInfoTabs = () => {
   return (
     <div>
       <div className="grid grid-cols-3 border-b-pink-400 border-b-2 mb-3 h-10 mx-10">
-        {tabs.map((tab) => (
+        {tabs.map((tab, index) => (
           <div
             onClick={() => setActive(tab)}
             className={`${
               active == tab ? "border-b-2 border-b-pink-700" : ""
             } h-full cursor-pointer w-full md:w-1/2 `}
+            key={index}
           >
             {tab}
           </div>
