@@ -159,9 +159,12 @@ function InOutForm({ theme, submitButton, role }) {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.99 }}
         disabled={loadingLogin}
+        style={{
+          backgroundColor: theme.palette.secondary.main,
+        }}
         sx={{
           color: theme.palette.secondary.contrastText,
-          backgroundColor: theme.palette.secondary.main,
+
           "&:hover": {
             backgroundColor: theme.palette.secondary.main,
           },

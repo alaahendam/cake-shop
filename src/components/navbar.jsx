@@ -61,7 +61,7 @@ const NavBar = () => {
       >
         {loginUser ? null : <Link href="/signup">Sign Up</Link>}
         {loginUser ? null : <Link href="/login">Log In</Link>}
-        <Link href="/signup">
+        <Link href="/shoppingCard">
           <Badge badgeContent={4} color="success">
             <ShoppingCartIcon />
           </Badge>
