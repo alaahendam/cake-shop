@@ -120,14 +120,14 @@ const ShoppingCardComponent = () => {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.99 }}
-          className="border border-pink-700 text-pink-700 h-10 w-60 rounded-md"
+          className="border border-pink-700 text-pink-700 h-10 w-48 rounded-md md:w-60 text-xs md:text-sm"
         >
           CONTINUE SHOPPING
         </motion.button>
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.99 }}
-          className="bg-pink-700 text-white h-10 w-60 rounded-md ml-4"
+          className="bg-pink-700 text-white h-10 w-48 rounded-md md:w-60 ml-4 text-xs md:text-sm"
         >
           PROCESSED TO CHECKOUT
         </motion.button>
