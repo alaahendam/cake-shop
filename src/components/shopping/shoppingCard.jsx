@@ -3,6 +3,7 @@ import Image from "next/image";
 import Counter from "../counter";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
+import { motion } from "framer-motion";
 const ShoppingCardComponent = () => {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const data = [
@@ -115,6 +116,22 @@ const ShoppingCardComponent = () => {
           ))}
         </tbody>
       </table>
+      <div className="flex justify-center items-center py-5">
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.99 }}
+          className="border border-pink-700 text-pink-700 h-10 w-60 rounded-md"
+        >
+          CONTINUE SHOPPING
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.99 }}
+          className="bg-pink-700 text-white h-10 w-60 rounded-md ml-4"
+        >
+          PROCESSED TO CHECKOUT
+        </motion.button>
+      </div>
     </div>
   );
 };
