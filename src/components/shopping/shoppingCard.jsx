@@ -34,6 +34,7 @@ const ShoppingCardComponent = () => {
               className={`border-b-2 border-[#ba9169] ${
                 selectedProducts.includes(index) ? "bg-slate-100" : null
               }`}
+              key={index}
             >
               <td
                 style={{
