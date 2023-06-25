@@ -4,7 +4,10 @@ import Counter from "../counter";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
 import { motion } from "framer-motion";
+import { useDispatch } from "react-redux";
+import { changeActiveProcess } from "@/redux/features/activeProcess";
 const ShoppingCardComponent = () => {
+  const dispatch = useDispatch();
   const [selectedProducts, setSelectedProducts] = useState([]);
   const data = [
     { img: "cheeseCake.jpg", price: "10 AMD", quantity: 2, total: "20 AMD" },
@@ -117,11 +120,17 @@ const ShoppingCardComponent = () => {
           ))}
         </tbody>
       </table>
+      <div>
+        <p>Subtotal : 2800 AMD</p>
+        <p>Delivery : 1000 AMD</p>
+        <p>Total : 3800 AMD</p>
+      </div>
       <div className="flex justify-center items-center py-5">
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.99 }}
           className="border border-pink-700 text-pink-700 h-10 w-48 rounded-md md:w-60 text-xs md:text-sm"
+          onClick={() => dispatch(changeActiveProcess("shoppingCard"))}
         >
           CONTINUE SHOPPING
         </motion.button>
@@ -129,6 +138,7 @@ const ShoppingCardComponent = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.99 }}
           className="bg-pink-700 text-white h-10 w-48 rounded-md md:w-60 ml-4 text-xs md:text-sm"
+          onClick={() => dispatch(changeActiveProcess("checkout"))}
         >
           PROCESSED TO CHECKOUT
         </motion.button>
