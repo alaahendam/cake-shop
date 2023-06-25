@@ -54,8 +54,8 @@ const Checkout = () => {
         >
           <h1 className="text-1xl text-[#ba9169] font-semibold">Your Order</h1>
           <div>
-            {data.map((item) => (
-              <div className="flex items-center my-2">
+            {data.map((item, index) => (
+              <div className="flex items-center my-2" key={index}>
                 <Image
                   priority
                   src={`/images/${item?.img ? item.img : "cheeseCake.jpg"}`}
@@ -77,6 +77,15 @@ const Checkout = () => {
                 </IconButton>
               </div>
             ))}
+          </div>
+          <div className="bg-[#ba9169] w-full h-px"></div>
+          <div className="flex justify-between text-[#ba9169]">
+            <p>Subtotal : </p>
+            <p>1000 AMD</p>
+          </div>
+          <div className="flex justify-between text-[#ba9169]">
+            <p>Subtotal : </p>
+            <p>1000 AMD</p>
           </div>
         </div>
         <div className="bg-gray-700 basis-full md:basis-2/3 h-52"></div>
