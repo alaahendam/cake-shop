@@ -1,9 +1,9 @@
 import { useState } from "react";
-const CakeInfoTabs = () => {
+const CakeInfoTabs = ({ data }) => {
   const [active, setActive] = useState("Description");
   const tabs = ["Description", "Ingredients", "Comments"];
   const cakeInfo = {
-    Description: "Description",
+    Description: data?.descriptionEn ?? "Description",
     Ingredients: "Ingredients",
     Comments: "Comments",
   };

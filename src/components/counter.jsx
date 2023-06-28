@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useState } from "react";
-const Counter = () => {
-  const [counter, setCounter] = useState(1);
+const Counter = ({ count }) => {
+  console.log(count);
+  const [counter, setCounter] = useState();
   const handleCounter = (flag) => {
     if (flag === "add") {
       setCounter(counter + 1);
@@ -10,6 +12,9 @@ const Counter = () => {
       setCounter(counter - 1);
     }
   };
+  useEffect(() => {
+    setCounter(count);
+  }, [count]);
   return (
     <div className=" border border-gray-400 px-3 py-1 rounded-md flex items-center justify-between w-32">
       <RemoveIcon

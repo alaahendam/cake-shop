@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Footer from "@/components/footer";
 import { motion } from "framer-motion";
@@ -7,9 +8,26 @@ import Counter from "@/components/counter";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CakeInfoTabs from "@/components/cakeInfoTabs";
 import CustomCarousel from "@/components/carousel ";
-
+import API from "../../utilities/api";
 const Cake = () => {
+  const [data, setData] = useState([]);
   const router = useRouter();
+  const { id } = router.query;
+  console.log("id", id);
+  useEffect(() => {
+    try {
+      const fetchData = async () => {
+        const { data } = await API.get(`products/by-id/${id}`);
+        console.log(data.product);
+        setData(data.product);
+      };
+      if (id) {
+        fetchData();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [id]);
   const date = new Date();
   return (
     <div>
@@ -17,7 +35,7 @@ const Cake = () => {
         <div className="w-full relative" dir="rtl">
           <Image
             priority
-            src={`/images/cheeseCake.jpg`}
+            src={data?.url ?? `/images/cheeseCake.jpg`}
             alt="Example Image"
             width={1000}
             height={1000}
@@ -28,8 +46,8 @@ const Cake = () => {
           </div>
         </div>
         <div>
-          <h1 className="text-3xl">Coffee Tiramisu</h1>
-          <h3 className="text-1xl">1000 AMD</h3>
+          <h1 className="text-3xl">{data?.nameEn}</h1>
+          <h3 className="text-1xl">{data?.price} AMD</h3>
           <h5 className="text-sm">{date.toISOString().split("T")[0]}</h5>
           <div className="w-full h-px bg-pink-400"></div>
           <Rating
@@ -40,10 +58,10 @@ const Cake = () => {
               console.log(newValue);
             }}
           />
-          <Counter />
-          <p>SKU:11</p>
-          <p>Category:alaa</p>
-          <p>Flavour:cheese</p>
+          <Counter count={1} />
+          <p>SKU:{data?.quantity}</p>
+          <p>Category : {data?.sybCategory?.category?.nameEn}</p>
+          <p>Flavour : {data?.nameEn?.split(" ")[0]}</p>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.99 }}
@@ -53,7 +71,7 @@ const Cake = () => {
           </motion.button>
         </div>
       </div>
-      <CakeInfoTabs />
+      <CakeInfoTabs data={data} />
       <CustomCarousel />
       <Footer />
     </div>

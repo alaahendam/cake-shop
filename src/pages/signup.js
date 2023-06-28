@@ -64,6 +64,7 @@ const SignUp = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.99 }}
               sx={role == "CLIENT" ? activeRole : notActiveRole}
+              style={role == "CLIENT" ? activeRole : notActiveRole}
               onClick={() => setRole("CLIENT")}
             >
               Customer
@@ -72,6 +73,7 @@ const SignUp = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.99 }}
               sx={role == "COMPANY" ? activeRole : notActiveRole}
+              style={role == "COMPANY" ? activeRole : notActiveRole}
               onClick={() => setRole("COMPANY")}
             >
               Shop

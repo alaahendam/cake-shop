@@ -13,15 +13,27 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const loginUser = useSelector((state) => state.user.user);
   const [whyUsData, setWhyUsData] = useState({});
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const { data } = await API.get("/orders/bestSellers");
-        setWhyUsData(data);
+
+        // Spread the users array and use role names as keys
+        const updatedWhyUsData = {
+          ...data,
+          users: data.users.reduce((acc, curr) => {
+            acc[curr.role] = curr.num;
+            return acc;
+          }, {}),
+        };
+        console.log(updatedWhyUsData);
+        setWhyUsData(updatedWhyUsData);
       } catch (error) {
         console.log(error);
       }
     };
+
     fetchData();
     console.log("useEffect");
   }, []);
@@ -158,13 +170,16 @@ export default function Home() {
             }}
           >
             <div className={styles.dFlexColumn}>
-              <NumberDisplay targetNumber={whyUsData?.numOrders} duration={3} />
+              <NumberDisplay
+                targetNumber={whyUsData?.numProducts ?? 0}
+                duration={3}
+              />
               <p>more products</p>
             </div>
             <div className={styles["vertical-line"]}></div>
             <div className={styles.dFlexColumn}>
               <NumberDisplay
-                targetNumber={whyUsData?.users?.[0]?.num}
+                targetNumber={whyUsData?.users?.CLIENT ?? 0}
                 duration={3}
               />
               <p>customers</p>
@@ -172,7 +187,7 @@ export default function Home() {
             <div className={styles["vertical-line"]}></div>
             <div className={styles.dFlexColumn}>
               <NumberDisplay
-                targetNumber={whyUsData?.users?.[2]?.num}
+                targetNumber={whyUsData?.users?.COMPANY ?? 0}
                 duration={3}
               />
               <p>company</p>
@@ -180,7 +195,7 @@ export default function Home() {
             <div className={styles["vertical-line"]}></div>
             <div className={styles.dFlexColumn}>
               <NumberDisplay
-                targetNumber={whyUsData?.numProducts}
+                targetNumber={whyUsData?.numOrders ?? 0}
                 duration={3}
               />
               <p>implemented orders</p>
