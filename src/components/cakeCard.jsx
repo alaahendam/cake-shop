@@ -22,7 +22,7 @@ const CakeCard = ({ info }) => {
       />
       <div className="px-5 py-2">
         <p class="font-semibold  ...">{info?.nameEn ?? "....."}</p>
-        <p class="font-light ...">{info?.nameEn?.split(" ")[0] ?? "....."}</p>
+        <p class="font-light ...">{info?.flavour?.nameEn ?? "....."}</p>
         <p class="font-medium ...">{info?.price ?? "....."}</p>
       </div>
     </motion.div>

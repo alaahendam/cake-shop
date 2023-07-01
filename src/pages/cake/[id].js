@@ -5,12 +5,13 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Rating from "@mui/material/Rating";
 import Counter from "@/components/counter";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import Favourite from "@/components/favourite";
 import CakeInfoTabs from "@/components/cakeInfoTabs";
 import CustomCarousel from "@/components/carousel ";
 import API from "../../utilities/api";
 const Cake = () => {
   const [data, setData] = useState([]);
+
   const router = useRouter();
   const { id } = router.query;
   console.log("id", id);
@@ -41,9 +42,7 @@ const Cake = () => {
             height={1000}
             className="w-full md:w-3/5 h-96 rounded-md"
           />
-          <div className="bg-slate-50 rounded-full w-10 h-10 flex justify-center items-center absolute top-1 right-1 cursor-pointer">
-            <FavoriteBorderIcon sx={{ color: "gray" }} />
-          </div>
+          <Favourite />
         </div>
         <div>
           <h1 className="text-3xl">{data?.nameEn}</h1>
@@ -61,7 +60,7 @@ const Cake = () => {
           <Counter count={1} />
           <p>SKU:{data?.quantity}</p>
           <p>Category : {data?.sybCategory?.category?.nameEn}</p>
-          <p>Flavour : {data?.nameEn?.split(" ")[0]}</p>
+          <p>Flavour : {data?.flavour?.nameEn}</p>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.99 }}

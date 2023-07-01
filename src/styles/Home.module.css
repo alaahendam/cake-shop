@@ -88,13 +88,12 @@
   top: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 7px;
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
-  font-size: 20px;
   font-weight: 500;
   cursor: pointer;
 }

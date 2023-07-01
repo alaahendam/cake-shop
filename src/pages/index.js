@@ -274,32 +274,31 @@ export default function Home() {
             </motion.div>
           ))}
         </div>
-        <div className={`${styles.bestSellersSection} ${styles.dFlexRow}`}>
-          {Cakes.map((cake, index) => (
+        <div className="flex justify-center items-center flex-wrap py-10">
+          {whyUsData?.categories?.map((cake, index) => (
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.99 }}
               key={index}
               style={{
-                height: "80%",
                 position: "relative",
                 borderRadius: "7px",
-                marginLeft: "10px",
+                backgroundColor: "red",
               }}
-              className={
-                index === 0 ? styles.cakeTypeHeightF : styles.cakeTypeHeight
-              }
+              className={` h-52 md:h-60 m-2 ${
+                index === 0 ? "w-4/12 md:w-3/12" : "w-2/12 md:w-1/12"
+              }`}
             >
               <Image
                 priority
-                src={`/images/${cake.path}`}
+                src={cake.url}
                 alt="Example Image"
                 width={300}
                 height={400}
                 className={styles["bestSellersSectionImg"]}
               />
-              <div className={`${styles.bestSellersSectionName}`}>
-                <p>{cake.name}</p>
+              <div className={`${styles.bestSellersSectionName} text-sm`}>
+                <p>{cake.nameEn}</p>
               </div>
             </motion.div>
           ))}
