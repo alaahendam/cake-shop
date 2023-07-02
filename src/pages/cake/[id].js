@@ -10,8 +10,7 @@ import CakeInfoTabs from "@/components/cakeInfoTabs";
 import CustomCarousel from "@/components/carousel ";
 import API from "../../utilities/api";
 const Cake = () => {
-  const [data, setData] = useState([]);
-
+  const [data, setData] = useState({});
   const router = useRouter();
   const { id } = router.query;
   console.log("id", id);
@@ -19,8 +18,8 @@ const Cake = () => {
     try {
       const fetchData = async () => {
         const { data } = await API.get(`products/by-id/${id}`);
-        console.log(data.product);
-        setData(data.product);
+        console.log(data);
+        setData(data);
       };
       if (id) {
         fetchData();
@@ -36,7 +35,7 @@ const Cake = () => {
         <div className="w-full relative" dir="rtl">
           <Image
             priority
-            src={data?.url ?? `/images/cheeseCake.jpg`}
+            src={data?.product?.url ?? `/images/cheeseCake.jpg`}
             alt="Example Image"
             width={1000}
             height={1000}
@@ -45,8 +44,8 @@ const Cake = () => {
           <Favourite />
         </div>
         <div>
-          <h1 className="text-3xl">{data?.nameEn}</h1>
-          <h3 className="text-1xl">{data?.price} AMD</h3>
+          <h1 className="text-3xl">{data?.product?.nameEn}</h1>
+          <h3 className="text-1xl">{data?.product?.price} AMD</h3>
           <h5 className="text-sm">{date.toISOString().split("T")[0]}</h5>
           <div className="w-full h-px bg-pink-400"></div>
           <Rating
@@ -57,10 +56,12 @@ const Cake = () => {
               console.log(newValue);
             }}
           />
-          <Counter count={1} />
-          <p>SKU:{data?.quantity}</p>
-          <p>Category : {data?.sybCategory?.category?.nameEn}</p>
-          <p>Flavour : {data?.flavour?.nameEn}</p>
+          <div className="w-1/2">
+            <Counter count={1} />
+          </div>
+          <p>SKU:{data?.product?.quantity}</p>
+          <p>Category : {data?.product?.sybCategory?.category?.nameEn}</p>
+          <p>Flavour : {data?.product?.flavour?.nameEn}</p>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.99 }}
@@ -71,7 +72,7 @@ const Cake = () => {
         </div>
       </div>
       <CakeInfoTabs data={data} />
-      <CustomCarousel />
+      <CustomCarousel data={data?.relatedProducts ?? [{}]} />
       <Footer />
     </div>
   );

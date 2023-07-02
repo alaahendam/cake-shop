@@ -13,10 +13,10 @@ const Counter = ({ count }) => {
     }
   };
   useEffect(() => {
-    setCounter(count);
+    setCounter(count ?? 1);
   }, [count]);
   return (
-    <div className=" border border-gray-400 px-3 py-1 rounded-md flex items-center justify-between w-32">
+    <div className=" border border-gray-400 py-1.5 rounded-md flex items-center justify-between w-full">
       <RemoveIcon
         onClick={() => handleCounter("remove")}
         className="cursor-pointer "
@@ -27,7 +27,7 @@ const Counter = ({ count }) => {
       <input
         type="text"
         value={counter}
-        style={{ textAlign: "center", width: "60px" }}
+        style={{ textAlign: "center", width: "40px" }}
         className="focus:outline-0"
         onChange={(e) => setCounter(e.target.value)}
       />

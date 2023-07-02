@@ -20,8 +20,8 @@ const imageUrls = [
 ];
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import Image from "next/image";
 import CakeCard from "./cakeCard";
+import { useState, useEffect } from "react";
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -39,7 +39,8 @@ const responsive = {
     slidesToSlide: 1, // optional, default to 1.
   },
 };
-const CustomCarousel = ({ props }) => {
+const CustomCarousel = ({ data }) => {
+  console.log(data);
   return (
     <div className="mx-10 mb-10">
       <Carousel
@@ -50,9 +51,9 @@ const CustomCarousel = ({ props }) => {
         infinite={true}
         itemClass="mb-10"
       >
-        {imageUrls.map((url, index) => (
-          <div className="mr-2 pb-5" key={index}>
-            <CakeCard info={{ img: url }} />
+        {data?.map((item) => (
+          <div className="mr-2 pb-5" key={item.id}>
+            <CakeCard info={item} />
           </div>
         ))}
       </Carousel>

@@ -6,6 +6,7 @@ import ProductsFilters from "@/components/productFilters";
 import Footer from "@/components/footer";
 import API from "../../utilities/api";
 import { useSelector } from "react-redux";
+import Pagination from "@/components/pagination";
 const Products = () => {
   const router = useRouter();
   const data = useSelector((state) => state.products.products);
@@ -27,6 +28,9 @@ const Products = () => {
           {data?.map((item, index) => (
             <CakeCard key={index} info={item} />
           ))}
+        </div>
+        <div className="w-full flex justify-center mt-5 pt-5">
+          <Pagination />
         </div>
       </div>
       <Footer />

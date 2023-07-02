@@ -21,9 +21,9 @@ const CakeCard = ({ info }) => {
         className="w-full h-48 md:h-60 rounded-t-md"
       />
       <div className="px-5 py-2">
-        <p class="font-semibold  ...">{info?.nameEn ?? "....."}</p>
-        <p class="font-light ...">{info?.flavour?.nameEn ?? "....."}</p>
-        <p class="font-medium ...">{info?.price ?? "....."}</p>
+        <p className="font-semibold  ...">{info?.nameEn ?? "....."}</p>
+        <p className="font-light ...">{info?.flavour?.nameEn ?? "....."}</p>
+        <p className="font-medium ...">{info?.price ?? "....."}</p>
       </div>
     </motion.div>
   );

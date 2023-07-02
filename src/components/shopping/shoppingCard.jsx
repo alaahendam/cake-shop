@@ -20,9 +20,9 @@ const ShoppingCardComponent = () => {
       <h1 className="text-2xl text-pink-700 font-semibold pb-3">
         shoppingCard
       </h1>
-      <table class="text-gray-500">
+      <table className="text-gray-500">
         <thead>
-          <tr className="border-b-2 border-[#ba9169] pb-3 h-14">
+          <tr className="border-b-2 border-[#ba9169] pb-3 h-14 text-sm md:text-lg">
             <th></th>
             <th>Product</th>
             <th>Price</th>
@@ -34,7 +34,7 @@ const ShoppingCardComponent = () => {
         <tbody>
           {data.map((item, index) => (
             <tr
-              className={`border-b-2 border-[#ba9169] ${
+              className={`border-b-2 border-[#ba9169] text-sm md:text-lg ${
                 selectedProducts.includes(index) ? "bg-slate-100" : null
               }`}
               key={index}
@@ -64,9 +64,9 @@ const ShoppingCardComponent = () => {
                 </div>
               </td>
               <td
-                class="p-3"
+                className="p-3"
                 style={{
-                  width: "20%",
+                  width: "25%",
                 }}
               >
                 <Image
