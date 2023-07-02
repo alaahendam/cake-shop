@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Pagination from "@mui/material/Pagination";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useSelector } from "react-redux";
+
 const CustomPagination = () => {
   const router = useRouter();
+  const productsNum = useSelector((state) => state.products.productsNum);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -14,7 +17,7 @@ const CustomPagination = () => {
   const handlePageChange = (event, page) => {
     router.push({
       pathname: "/products/filter",
-      query: { page: page },
+      query: { page: page, size: 10 },
     });
   };
   const theme = createTheme({
@@ -28,7 +31,11 @@ const CustomPagination = () => {
   return (
     <ThemeProvider theme={theme}>
       <Pagination
-        count={10}
+        count={
+          productsNum % (router?.query?.size ?? 10)
+            ? parseInt(productsNum / (router?.query?.size ?? 10)) + 1
+            : productsNum / (router?.query?.size ?? 10)
+        }
         color="primary" // Use the primary color from the custom theme
         page={currentPage}
         onChange={handlePageChange}
