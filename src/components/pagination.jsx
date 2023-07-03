@@ -15,9 +15,15 @@ const CustomPagination = () => {
     setCurrentPage(parsedPage);
   }, [router.query.page]);
   const handlePageChange = (event, page) => {
+    let tempRouter = {
+      ...router.query,
+      page: page,
+      size: router.query.size ?? 10,
+    };
+    delete tempRouter["slug"];
     router.push({
       pathname: "/products/filter",
-      query: { page: page, size: 10 },
+      query: tempRouter,
     });
   };
   const theme = createTheme({

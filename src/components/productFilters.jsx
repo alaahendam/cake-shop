@@ -90,7 +90,7 @@ const ProductsFilters = () => {
     <div className="flex justify-center items-center">
       <div
         dir="rtl"
-        className="border border-slate-80 bg-blue-100 rounded-md mt-4 min-w-[50%] max-w-[80%] min-h-[56px] flex flex-col items-center justify-start md:justify-end px-2 md:flex-row"
+        className="border border-slate-80 bg-blue-100 rounded-md mt-4 min-w-[50%] max-w-[80%] min-h-[56px] flex flex-col items-center justify-start md:justify-end px-2 md:flex-row py-2 md:py-0"
       >
         <motion.div
           className="flex cursor-pointer border border-pink-500 text-pink-500 bg-white w-fit px-5 py-1 rounded-md select-none"
@@ -151,25 +151,29 @@ const ProductsFilters = () => {
               {...register(`nameEn`)}
             />
           </div>
-          <div className="flex justify-between items-center text-sm md:text-lg ">
-            <label htmlFor="" className="">
-              price start :{" "}
-            </label>
-            <input
-              type="number"
-              className="w-3/12 md:w-1/3 px-2 focus:outline-pink-700 rounded-md h-10 border border-pink-500"
-              control={control}
-              {...register(`priceStart`)}
-            />
-            <label htmlFor="" className="">
-              price end :{" "}
-            </label>
-            <input
-              type="number"
-              className="w-3/12 md:w-1/3 px-2 focus:outline-pink-700 rounded-md h-10 border border-pink-500"
-              control={control}
-              {...register(`priceEnd`)}
-            />
+          <div className="flex justify-between items-center text-sm md:text-lg flex-col md:flex-row">
+            <div className="flex items-center mb-2 md:mb-0">
+              <label htmlFor="" className="">
+                price start :{" "}
+              </label>
+              <input
+                type="number"
+                className="w-2/3 md:w-1/3 px-2 focus:outline-pink-700 rounded-md h-10 border border-pink-500"
+                control={control}
+                {...register(`priceStart`)}
+              />
+            </div>
+            <div className="flex items-center">
+              <label htmlFor="" className="">
+                price end :{" "}
+              </label>
+              <input
+                type="number"
+                className="w-2/3 md:w-1/3 px-2 focus:outline-pink-700 rounded-md h-10 border border-pink-500"
+                control={control}
+                {...register(`priceEnd`)}
+              />
+            </div>
           </div>
           <div className="mb-5">
             {categories.map((mainCategory, index) => (

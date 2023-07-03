@@ -54,7 +54,7 @@ export const MobileNavBar = () => {
       ref={containerRef}
       className={styles.mobileNavBar}
       style={{
-        height: isOpen ? "100vh" : "9vh",
+        height: isOpen ? "100vh" : "10vh",
       }}
     >
       <motion.div className={styles.background} variants={sidebar} />
