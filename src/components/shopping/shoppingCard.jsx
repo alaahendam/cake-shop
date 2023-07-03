@@ -23,12 +23,12 @@ const ShoppingCardComponent = () => {
       <table className="text-gray-500">
         <thead>
           <tr className="border-b-2 border-[#ba9169] pb-3 h-14 text-sm md:text-lg">
-            <th></th>
+            <th className="w-[5%]"></th>
             <th>Product</th>
             <th>Price</th>
             <th>quantity</th>
             <th>Total</th>
-            <th></th>
+            <th className="w-[5%]"></th>
           </tr>
         </thead>
         <tbody>
@@ -39,11 +39,7 @@ const ShoppingCardComponent = () => {
               }`}
               key={index}
             >
-              <td
-                style={{
-                  width: "10%",
-                }}
-              >
+              <td className="w-[5%]">
                 <div className="flex flex-col justify-center items-center">
                   <input
                     type="checkbox"
@@ -105,11 +101,7 @@ const ShoppingCardComponent = () => {
                   {item.total}
                 </div>
               </td>
-              <td
-                style={{
-                  width: "10%",
-                }}
-              >
+              <td className="w-[5%]">
                 <div className="flex flex-col justify-center items-center">
                   <IconButton>
                     <CloseIcon />
