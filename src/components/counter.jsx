@@ -2,11 +2,13 @@ import { useEffect } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useState } from "react";
-const Counter = ({ count }) => {
-  console.log(count);
+const Counter = ({ count, callbackF }) => {
   const [counter, setCounter] = useState();
   const handleCounter = (flag) => {
     if (flag === "add") {
+      if (callbackF) {
+        callbackF(counter + 1);
+      }
       setCounter(counter + 1);
     } else {
       setCounter(counter - 1);

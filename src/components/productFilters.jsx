@@ -4,7 +4,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { motion } from "framer-motion";
 import Dialog from "@mui/material/Dialog";
 import { useRouter } from "next/router";
-import { addProducts } from "@/redux/features/products";
+import { addProducts, addCategories } from "@/redux/features/products";
 import { useDispatch, useSelector } from "react-redux";
 import CategoryIcon from "@mui/icons-material/Category";
 import SubdirectoryArrowRightIcon from "@mui/icons-material/SubdirectoryArrowRight";
@@ -14,9 +14,9 @@ import API from "../utilities/api";
 const ProductsFilters = () => {
   const dispatch = useDispatch();
   const productsNum = useSelector((state) => state.products.productsNum);
+  const categories = useSelector((state) => state.products.categories);
   const router = useRouter();
   const [openFilter, setOpenFilter] = useState(false);
-  const [categories, setCategories] = useState([]);
   const {
     register,
     formState: { errors },
@@ -57,7 +57,7 @@ const ProductsFilters = () => {
     const fetchData = async () => {
       const { data } = await API.get("/categories");
       console.log("categories data", data);
-      setCategories(data?.categories);
+      dispatch(addCategories(data?.categories));
     };
     fetchData();
   }, []);
@@ -87,46 +87,44 @@ const ProductsFilters = () => {
     setOpenFilter(false);
   };
   return (
-    <div className="flex justify-center items-center">
-      <div
-        dir="rtl"
-        className="border border-slate-80 bg-blue-100 rounded-md mt-4 min-w-[50%] max-w-[80%] min-h-[56px] flex flex-col items-center justify-start md:justify-end px-2 md:flex-row py-2 md:py-0"
+    <div
+      dir="rtl"
+      className="border border-slate-80 bg-blue-100 rounded-md min-w-[50%] max-w-[80%] min-h-[56px] flex flex-col items-center justify-start md:justify-end px-2 md:flex-row py-2 md:py-0"
+    >
+      <motion.div
+        className="flex cursor-pointer border border-pink-500 text-pink-500 bg-white w-fit px-5 py-1 rounded-md select-none"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.99 }}
+        onClick={() => setOpenFilter(true)}
       >
-        <motion.div
-          className="flex cursor-pointer border border-pink-500 text-pink-500 bg-white w-fit px-5 py-1 rounded-md select-none"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.99 }}
-          onClick={() => setOpenFilter(true)}
-        >
-          <FilterAltIcon />
-          Filter
-        </motion.div>
+        <FilterAltIcon />
+        Filter
+      </motion.div>
 
-        <div className="w-full flex flex-wrap px-2 py-1">
-          {Object.keys(router.query).map((key) => {
-            if (!["slug", "page", "size", "subCategories"].includes(key)) {
-              return (
-                <div
-                  className=" w-fit py-2 px-3 mb-1 ml-1 border border-pink-500 text-pink-500 rounded-md select-none flex items-center"
-                  key={key}
+      <div className="w-full flex flex-wrap px-2 py-1">
+        {Object.keys(router.query).map((key) => {
+          if (!["slug", "page", "size", "subCategories"].includes(key)) {
+            return (
+              <div
+                className=" w-fit py-2 px-3 mb-1 ml-1 border border-pink-500 text-pink-500 rounded-md select-none flex items-center"
+                key={key}
+              >
+                <motion.div
+                  className="cursor-pointer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.99 }}
+                  onClick={() => deleteFilter(key)}
                 >
-                  <motion.div
-                    className="cursor-pointer"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.99 }}
-                    onClick={() => deleteFilter(key)}
-                  >
-                    <CloseIcon />
-                  </motion.div>
-                  {router.query[key]}
-                </div>
-              );
-            }
-          })}
-        </div>
-        <div className="h-full min-w-fit max-w-[350px] text-slate-400">
-          .There are {productsNum} products
-        </div>
+                  <CloseIcon />
+                </motion.div>
+                {router.query[key]}
+              </div>
+            );
+          }
+        })}
+      </div>
+      <div className="h-full min-w-fit max-w-[350px] text-slate-400 flex items-center">
+        .There are {productsNum} products
       </div>
       <Dialog
         disableScrollLock

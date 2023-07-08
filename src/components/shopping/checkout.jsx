@@ -18,7 +18,7 @@ const theme = createTheme({
   },
 });
 const Checkout = () => {
-  const { handleSubmit, control, reset } = useForm();
+  const { handleSubmit, control, reset, register } = useForm();
   const dispatch = useDispatch();
   const data = [
     {
@@ -54,8 +54,15 @@ const Checkout = () => {
       total: "20 AMD",
     },
   ];
+  const onSubmit = (data) => {
+    console.log(data);
+    dispatch(changeActiveProcess("orderConfirmed"));
+  };
   return (
-    <div className="flex justify-center items-center flex-col py-5">
+    <form
+      className="flex justify-center items-center flex-col py-5"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <h1 className="text-2xl text-pink-700 font-semibold pb-3">Checkout</h1>
       <div
         className="flex justify-center w-full flex-wrap px-5 md:px-28"
@@ -119,21 +126,21 @@ const Checkout = () => {
                 label="Last Name"
                 variant="standard"
                 control={control}
-                name="fName"
+                name="lName"
               />
               <CheckoutTextInput
                 required={true}
                 label="Phone Number"
                 variant="standard"
                 control={control}
-                name="fName"
+                name="phone"
               />
               <CheckoutTextInput
                 required={true}
                 label="Email"
                 variant="standard"
                 control={control}
-                name="fName"
+                name="email"
               />
             </div>
             <CheckoutTextInput
@@ -141,21 +148,21 @@ const Checkout = () => {
               label="State/Country"
               variant="standard"
               control={control}
-              name="fName"
+              name="country"
             />
             <CheckoutTextInput
               required={true}
               label="Delivery time"
               variant="standard"
               control={control}
-              name="fName"
+              name="deliveryTime"
             />
             <CheckoutTextInput
               required={true}
               label="Delivery address"
               variant="standard"
               control={control}
-              name="fName"
+              name="address"
             />
             <h3 className="text-[#ba9169] text-lg">Additional Information</h3>
             <textarea
@@ -164,6 +171,7 @@ const Checkout = () => {
               cols="30"
               rows="10"
               className="border border-[black] mt-2 w-full md:w-1/2 rounded-md focus:outline-[#ba9169]"
+              {...register("information")}
             ></textarea>
           </div>
         </ThemeProvider>
@@ -177,16 +185,16 @@ const Checkout = () => {
         >
           CONTINUE SHOPPING
         </motion.button>
-        <motion.button
+        <motion.input
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.99 }}
           className="bg-pink-700 text-white h-10 w-48 rounded-md md:w-60 ml-4 text-xs md:text-sm"
-          onClick={() => dispatch(changeActiveProcess("orderConfirmed"))}
-        >
-          Confirme Order
-        </motion.button>
+          //onClick={() => dispatch(changeActiveProcess("orderConfirmed"))}
+          value={"Confirme Order"}
+          type="submit"
+        />
       </div>
-    </div>
+    </form>
   );
 };
 export default Checkout;

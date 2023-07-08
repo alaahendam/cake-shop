@@ -1,22 +1,34 @@
 import { useEffect } from "react";
 import API from "@/utilities/api";
 import { addLoginUser } from "@/redux/features/user";
+import { addCartNum } from "@/redux/features/cartNum";
 import { useDispatch } from "react-redux";
 import Head from "next/head";
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    const fetchDate = async () => {
+    const fetchData = async () => {
       try {
-        const { data } = await API.get("/users/");
-        if (data.user) {
-          dispatch(addLoginUser(data.user));
+        const [userData, cartNumData] = await Promise.all([
+          API.get("/users/"),
+          API.get("/orders/cart-items-num/"),
+        ]);
+
+        const { data: userDataResponse } = userData;
+        const { data: cartNumDataResponse } = cartNumData;
+
+        if (userDataResponse.user) {
+          dispatch(addLoginUser(userDataResponse.user));
+        }
+        if (cartNumDataResponse.cartLength) {
+          dispatch(addCartNum(cartNumDataResponse.cartLength));
         }
       } catch (error) {
         console.log(error);
       }
     };
-    fetchDate();
+
+    fetchData();
   }, []);
   return (
     <div>

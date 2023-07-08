@@ -9,8 +9,12 @@ import Favourite from "@/components/favourite";
 import CakeInfoTabs from "@/components/cakeInfoTabs";
 import CustomCarousel from "@/components/carousel ";
 import API from "../../utilities/api";
+import { useDispatch } from "react-redux";
+import { addCartNum } from "@/redux/features/cartNum";
 const Cake = () => {
   const [data, setData] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
   const router = useRouter();
   const { id } = router.query;
   console.log("id", id);
@@ -29,6 +33,16 @@ const Cake = () => {
     }
   }, [id]);
   const date = new Date();
+  const addToCart = async () => {
+    const { data } = await API.post("/orders/addToCart/", {
+      productId: id,
+      quantity: quantity,
+    });
+    console.log(data);
+    if (data?.msg == "product added to cart successfully") {
+      dispatch(addCartNum(data?.cartLength));
+    }
+  };
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 p-10">
@@ -57,7 +71,7 @@ const Cake = () => {
             }}
           />
           <div className="w-1/2">
-            <Counter count={1} />
+            <Counter count={1} callbackF={setQuantity} />
           </div>
           <p>SKU:{data?.product?.quantity}</p>
           <p>Category : {data?.product?.sybCategory?.category?.nameEn}</p>
@@ -66,6 +80,7 @@ const Cake = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.99 }}
             className="bg-pink-500 text-slate-50 py-2 w-1/2 rounded-sm"
+            onClick={addToCart}
           >
             ADD TO CARD
           </motion.button>

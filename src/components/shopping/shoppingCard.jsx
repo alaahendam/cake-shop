@@ -1,20 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Counter from "../counter";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
 import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeActiveProcess } from "@/redux/features/activeProcess";
+import SelectAllIcon from "@mui/icons-material/SelectAll";
 const ShoppingCardComponent = () => {
   const dispatch = useDispatch();
   const [selectedProducts, setSelectedProducts] = useState([]);
-  const data = [
-    { img: "cheeseCake.jpg", price: "10 AMD", quantity: 2, total: "20 AMD" },
-    { img: "cheeseCake.jpg", price: "10 AMD", quantity: 2, total: "20 AMD" },
-    { img: "cheeseCake.jpg", price: "10 AMD", quantity: 2, total: "20 AMD" },
-    { img: "cheeseCake.jpg", price: "10 AMD", quantity: 2, total: "20 AMD" },
-  ];
+  const cart = useSelector((state) => state.cart.cart);
+
   return (
     <div className="flex justify-center items-center flex-col py-5">
       <h1 className="text-2xl text-pink-700 font-semibold pb-3">
@@ -23,7 +20,9 @@ const ShoppingCardComponent = () => {
       <table className="text-gray-500">
         <thead>
           <tr className="border-b-2 border-[#ba9169] pb-3 h-14 text-sm md:text-lg">
-            <th className="w-[5%]"></th>
+            <th className="w-[5%] text-blue-400 cursor-pointer">
+              <SelectAllIcon />
+            </th>
             <th>Product</th>
             <th>Price</th>
             <th>quantity</th>
@@ -32,7 +31,7 @@ const ShoppingCardComponent = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => (
+          {cart?.cartItems?.map((item, index) => (
             <tr
               className={`border-b-2 border-[#ba9169] text-sm md:text-lg ${
                 selectedProducts.includes(index) ? "bg-slate-100" : null
@@ -67,7 +66,7 @@ const ShoppingCardComponent = () => {
               >
                 <Image
                   priority
-                  src={`/images/${item?.img ? item.img : "cheeseCake.jpg"}`}
+                  src={item?.product?.url}
                   alt="Example Image"
                   width={300}
                   height={400}
@@ -80,7 +79,7 @@ const ShoppingCardComponent = () => {
                 }}
               >
                 <div className="flex flex-col justify-center items-center">
-                  {item.price}
+                  {item?.product?.price}
                 </div>
               </td>
               <td
@@ -89,7 +88,7 @@ const ShoppingCardComponent = () => {
                 }}
               >
                 <div className="flex flex-col justify-center items-center">
-                  <Counter />
+                  <Counter count={item?.quantity} />
                 </div>
               </td>
               <td
@@ -98,7 +97,7 @@ const ShoppingCardComponent = () => {
                 }}
               >
                 <div className="flex flex-col justify-center items-center">
-                  {item.total}
+                  {item?.price}
                 </div>
               </td>
               <td className="w-[5%]">
@@ -113,9 +112,9 @@ const ShoppingCardComponent = () => {
         </tbody>
       </table>
       <div>
-        <p>Subtotal : 2800 AMD</p>
+        <p>Subtotal : {cart?.totalCartPrice} AMD</p>
         <p>Delivery : 1000 AMD</p>
-        <p>Total : 3800 AMD</p>
+        <p>Total : {cart?.totalCartPrice + 1000} AMD</p>
       </div>
       <div className="flex justify-center items-center py-5">
         <motion.button
