@@ -7,11 +7,12 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { changeActiveProcess } from "@/redux/features/activeProcess";
 import SelectAllIcon from "@mui/icons-material/SelectAll";
+import { addOrders } from "@/redux/features/cart";
 const ShoppingCardComponent = () => {
   const dispatch = useDispatch();
-  const [selectedProducts, setSelectedProducts] = useState([]);
   const cart = useSelector((state) => state.cart.cart);
-
+  const orders = useSelector((state) => state.cart.orders);
+  console.log(cart);
   return (
     <div className="flex justify-center items-center flex-col py-5">
       <h1 className="text-2xl text-pink-700 font-semibold pb-3">
@@ -21,7 +22,19 @@ const ShoppingCardComponent = () => {
         <thead>
           <tr className="border-b-2 border-[#ba9169] pb-3 h-14 text-sm md:text-lg">
             <th className="w-[5%] text-blue-400 cursor-pointer">
-              <SelectAllIcon />
+              <SelectAllIcon
+                onClick={() => {
+                  if (orders?.length == cart?.cartItems?.length) {
+                    dispatch(addOrders([]));
+                  } else {
+                    dispatch(
+                      addOrders(
+                        cart?.cartItems?.map((cartItem) => cartItem.id) || []
+                      )
+                    );
+                  }
+                }}
+              />
             </th>
             <th>Product</th>
             <th>Price</th>
@@ -34,9 +47,9 @@ const ShoppingCardComponent = () => {
           {cart?.cartItems?.map((item, index) => (
             <tr
               className={`border-b-2 border-[#ba9169] text-sm md:text-lg ${
-                selectedProducts.includes(index) ? "bg-slate-100" : null
+                orders.includes(item?.id) ? "bg-slate-100" : null
               }`}
-              key={index}
+              key={item?.id}
             >
               <td className="w-[5%]">
                 <div className="flex flex-col justify-center items-center">
@@ -45,14 +58,14 @@ const ShoppingCardComponent = () => {
                     name=""
                     id=""
                     onChange={() => {
-                      if (selectedProducts.includes(index)) {
+                      if (orders.includes(item?.id)) {
                         // Item already exists in the array, remove it
-                        setSelectedProducts(
-                          selectedProducts.filter((item) => item !== index)
+                        dispatch(
+                          addOrders(orders.filter((id) => id !== item?.id))
                         );
                       } else {
                         // Item doesn't exist, add it to the array
-                        setSelectedProducts([...selectedProducts, index]);
+                        dispatch(addOrders([...orders, item?.id]));
                       }
                     }}
                   />

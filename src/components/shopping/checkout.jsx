@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeActiveProcess } from "@/redux/features/activeProcess";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
@@ -8,7 +8,7 @@ import Image from "next/image";
 import CheckoutTextInput from "./checkoutTextInput";
 import { useForm, Controller } from "react-hook-form";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import { addOrdersPrice, addOrders } from "@/redux/features/cart";
 const theme = createTheme({
   palette: {
     primary: {
@@ -20,6 +20,9 @@ const theme = createTheme({
 const Checkout = () => {
   const { handleSubmit, control, reset, register } = useForm();
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart.cart);
+  const orders = useSelector((state) => state.cart.orders);
+  const ordersPrice = useSelector((state) => state.cart.ordersPrice);
   const data = [
     {
       name: "chesse cake",
@@ -58,6 +61,15 @@ const Checkout = () => {
     console.log(data);
     dispatch(changeActiveProcess("orderConfirmed"));
   };
+  useEffect(() => {
+    let totalPrice = 0;
+    cart?.cartItems?.map((item, index) => {
+      if (orders.includes(item?.id)) {
+        totalPrice += item?.price;
+      }
+    });
+    dispatch(addOrdersPrice(totalPrice));
+  }, [orders]);
   return (
     <form
       className="flex justify-center items-center flex-col py-5"
@@ -73,39 +85,50 @@ const Checkout = () => {
           dir="ltr"
         >
           <h1 className="text-1xl text-[#ba9169] font-semibold">Your Order</h1>
-          <div>
-            {data.map((item, index) => (
-              <div className="flex items-center my-2" key={index}>
-                <Image
-                  priority
-                  src={`/images/${item?.img ? item.img : "cheeseCake.jpg"}`}
-                  alt="Example Image"
-                  width={300}
-                  height={400}
-                  className="w-1/4 h-20 rounded-md "
-                />
-                <div className="w-2/3 px-2">
-                  <h2>{item.name}</h2>
-                  <p>{item.flavour}</p>
-                  <div className="flex justify-between">
-                    <p>{item.quantity}</p>
-                    <p>{item.price}</p>
+          <div className="h-[85%] overflow-auto">
+            {cart?.cartItems?.map((item, index) => {
+              if (orders.includes(item?.id)) {
+                //dispatch(addOrdersPrice(item?.price));
+                return (
+                  <div className="flex items-center my-2" key={index}>
+                    <Image
+                      priority
+                      src={item?.product?.url}
+                      alt="Example Image"
+                      width={300}
+                      height={400}
+                      className="w-1/4 h-20 rounded-md "
+                    />
+                    <div className="w-2/3 px-2">
+                      <h2>{item?.product?.nameEn}</h2>
+                      <p>{item?.product?.flavour?.nameEn}</p>
+                      <div className="flex justify-between">
+                        <p>{item.quantity}</p>
+                        <p>{item?.price}</p>
+                      </div>
+                    </div>
+                    <IconButton
+                      onClick={() =>
+                        dispatch(
+                          addOrders(orders.filter((id) => id !== item?.id))
+                        )
+                      }
+                    >
+                      <CloseIcon />
+                    </IconButton>
                   </div>
-                </div>
-                <IconButton>
-                  <CloseIcon />
-                </IconButton>
-              </div>
-            ))}
+                );
+              }
+            })}
           </div>
           <div className="bg-[#ba9169] w-full h-px"></div>
           <div className="flex justify-between text-[#ba9169]">
             <p>Subtotal : </p>
-            <p>1000 AMD</p>
+            <p>{ordersPrice} AMD</p>
           </div>
           <div className="flex justify-between text-[#ba9169]">
             <p>Subtotal : </p>
-            <p>1000 AMD</p>
+            <p>{ordersPrice + 200} AMD</p>
           </div>
         </div>
         <ThemeProvider theme={theme}>
