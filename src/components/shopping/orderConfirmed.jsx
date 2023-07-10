@@ -40,11 +40,12 @@ const OrderConfirmed = () => {
         </div>
         <div>
           {cart?.cartItems?.map((item) => {
-            console.log("hello item");
             if (orders.includes(item?.id)) {
-              console.log("hello");
               return (
-                <div className="border-b border-pink-600 py-5 flex justify-around items-center">
+                <div
+                  className="border-b border-pink-600 py-5 flex justify-around items-center"
+                  key={item?.id}
+                >
                   <div className="flex items-center w-1/2 md:w-1/2">
                     <Image
                       priority
