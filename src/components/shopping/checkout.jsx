@@ -8,7 +8,10 @@ import Image from "next/image";
 import CheckoutTextInput from "./checkoutTextInput";
 import { useForm, Controller } from "react-hook-form";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { addOrdersPrice, addOrders } from "@/redux/features/cart";
+import { addOrdersPrice, addOrders, addCartNum } from "@/redux/features/cart";
+import toast from "react-hot-toast";
+import API from "../../utilities/api";
+import { addLoginUser } from "@/redux/features/user";
 const theme = createTheme({
   palette: {
     primary: {
@@ -18,48 +21,38 @@ const theme = createTheme({
   },
 });
 const Checkout = () => {
-  const { handleSubmit, control, reset, register } = useForm();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
   const orders = useSelector((state) => state.cart.orders);
   const ordersPrice = useSelector((state) => state.cart.ordersPrice);
-  const data = [
-    {
-      name: "chesse cake",
-      flavour: "chesse",
-      img: "cheeseCake.jpg",
-      price: "10 AMD",
-      quantity: 2,
-      total: "20 AMD",
-    },
-    {
-      name: "chesse cake",
-      flavour: "chesse",
-      img: "cheeseCake.jpg",
-      price: "10 AMD",
-      quantity: 2,
-      total: "20 AMD",
-    },
-    {
-      name: "chesse cake",
-      flavour: "chesse",
-      img: "cheeseCake.jpg",
-      price: "10 AMD",
-      quantity: 2,
-      total: "20 AMD",
-    },
-    {
-      name: "chesse cake",
-      flavour: "chesse",
-      img: "cheeseCake.jpg",
-      price: "10 AMD",
-      quantity: 2,
-      total: "20 AMD",
-    },
-  ];
-  const onSubmit = (data) => {
-    console.log(data);
-    dispatch(changeActiveProcess("orderConfirmed"));
+  const loginUser = useSelector((state) => state.user.user);
+  const { handleSubmit, control, reset, register } = useForm({
+    defaultValues: { ...loginUser, ...loginUser?.profile },
+  });
+  console.log({ ...loginUser, ...loginUser?.profile });
+  const onSubmit = async (values) => {
+    const loadingToast = toast.loading("Please Wait...");
+    try {
+      const { data: profileData } = await API.post("/users/profile/", {
+        ...values,
+        city: "",
+        bio: "",
+      });
+      dispatch(addLoginUser({ ...loginUser, profile: profileData.profile }));
+      const { data: ConfirmedOrder } = await API.post("/orders", {
+        deliveryAddress: values.address,
+        cartItemsIdes: orders,
+      });
+      console.log(ConfirmedOrder);
+      dispatch(addCartNum(ConfirmedOrder?.cartLength));
+      console.log(profileData);
+      toast.dismiss(loadingToast);
+      toast.success(ConfirmedOrder?.msg);
+      dispatch(changeActiveProcess("orderConfirmed"));
+    } catch (error) {
+      console.log(error);
+      toast.error("This is an error!");
+    }
   };
   useEffect(() => {
     let totalPrice = 0;
@@ -72,20 +65,20 @@ const Checkout = () => {
   }, [orders]);
   return (
     <form
-      className="flex justify-center items-center flex-col py-5"
+      className="flex justify-center items-center flex-col py-5 h-full"
       onSubmit={handleSubmit(onSubmit)}
     >
       <h1 className="text-2xl text-pink-700 font-semibold pb-3">Checkout</h1>
       <div
-        className="flex justify-center w-full flex-wrap px-5 md:px-28"
+        className="flex justify-center w-full flex-wrap px-5 md:px-28 h-full md:h-[67vh]"
         dir="rtl"
       >
         <div
-          className="bg-[#ffdfbf] basis-full md:basis-1/3 rounded-md px-2 py-4"
+          className="bg-[#ffdfbf] basis-full md:basis-1/3 rounded-md px-2 py-4 h-96 md:h-full "
           dir="ltr"
         >
           <h1 className="text-1xl text-[#ba9169] font-semibold">Your Order</h1>
-          <div className="h-[85%] overflow-auto">
+          <div className="h-[80%] overflow-auto">
             {cart?.cartItems?.map((item, index) => {
               if (orders.includes(item?.id)) {
                 //dispatch(addOrdersPrice(item?.price));
@@ -103,7 +96,7 @@ const Checkout = () => {
                       <h2>{item?.product?.nameEn}</h2>
                       <p>{item?.product?.flavour?.nameEn}</p>
                       <div className="flex justify-between">
-                        <p>{item.quantity}</p>
+                        <p>x {item.quantity}</p>
                         <p>{item?.price}</p>
                       </div>
                     </div>
@@ -156,7 +149,7 @@ const Checkout = () => {
                 label="Phone Number"
                 variant="standard"
                 control={control}
-                name="phone"
+                name="phoneNum"
               />
               <CheckoutTextInput
                 required={true}
@@ -173,13 +166,15 @@ const Checkout = () => {
               control={control}
               name="country"
             />
-            <CheckoutTextInput
+            {/* <CheckoutTextInput
               required={true}
+              type={"dateTime"}
               label="Delivery time"
               variant="standard"
               control={control}
               name="deliveryTime"
-            />
+            /> */}
+
             <CheckoutTextInput
               required={true}
               label="Delivery address"

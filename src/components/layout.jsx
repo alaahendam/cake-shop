@@ -1,12 +1,16 @@
 import { useEffect } from "react";
 import API from "@/utilities/api";
 import { addLoginUser } from "@/redux/features/user";
-import { addCartNum } from "@/redux/features/cartNum";
+import { addCartNum } from "@/redux/features/cart";
 import { useDispatch } from "react-redux";
 import Head from "next/head";
+import { useRouter } from "next/router";
 const Layout = ({ children }) => {
+  const router = useRouter();
   const dispatch = useDispatch();
+  console.log("call layout");
   useEffect(() => {
+    console.log("call useEffect in layout");
     const fetchData = async () => {
       try {
         const [userData, cartNumData] = await Promise.all([
@@ -29,7 +33,7 @@ const Layout = ({ children }) => {
     };
 
     fetchData();
-  }, []);
+  }, [router]);
   return (
     <div>
       <Head>

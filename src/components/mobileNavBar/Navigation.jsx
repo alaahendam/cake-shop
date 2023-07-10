@@ -24,6 +24,7 @@ const variants = {
 
 export const Navigation = ({ isOpen }) => {
   const loginUser = useSelector((state) => state.user.user);
+  const cartNum = useSelector((state) => state.cart.cartNum);
   const dispatch = useDispatch();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -67,8 +68,8 @@ export const Navigation = ({ isOpen }) => {
             alignItems: "center",
           }}
         >
-          <Link href="/shop">
-            <Badge badgeContent={4} color="success">
+          <Link href="/shoppingCard">
+            <Badge badgeContent={cartNum} color="success">
               <ShoppingCartIcon
                 sx={{
                   color: "#c2185b",

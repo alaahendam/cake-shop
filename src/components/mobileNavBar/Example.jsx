@@ -43,6 +43,7 @@ export const MobileNavBar = () => {
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
   const loginUser = useSelector((state) => state.user.user);
+  const cartNum = useSelector((state) => state.cart.cartNum);
   useEffect(() => {
     setOpen(false);
   }, [router]);
@@ -72,12 +73,12 @@ export const MobileNavBar = () => {
       >
         {loginUser ? (
           <Link
-            href="/shop"
+            href="/shoppingCard"
             style={{
               display: isOpen ? "none" : "block",
             }}
           >
-            <Badge badgeContent={4} color="success">
+            <Badge badgeContent={cartNum} color="success">
               <ShoppingCartIcon
                 sx={{
                   color: "white",

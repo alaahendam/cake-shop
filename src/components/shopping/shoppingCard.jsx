@@ -7,12 +7,42 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { changeActiveProcess } from "@/redux/features/activeProcess";
 import SelectAllIcon from "@mui/icons-material/SelectAll";
-import { addOrders } from "@/redux/features/cart";
+import { addCartData, addOrders, addCartNum } from "@/redux/features/cart";
+import toast from "react-hot-toast";
+import API from "../../utilities/api";
 const ShoppingCardComponent = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
   const orders = useSelector((state) => state.cart.orders);
+  const cartNum = useSelector((state) => state.cart.cartNum);
   console.log(cart);
+  const deleteProduct = async (id, price) => {
+    try {
+      const { data } = await API.delete(`/orders/cart-items/${id}`);
+      toast.success(data?.msg);
+      dispatch(addCartNum(cartNum - 1));
+      dispatch(
+        addCartData({
+          ...cart,
+          totalCartPrice: cart?.totalCartPrice - price,
+          cartItems: cart?.cartItems?.filter((item) => item.id != id),
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const updateQuantity = async (quantity, id) => {
+    console.log(quantity);
+    console.log(id);
+    try {
+      const { data } = await API.put(`/orders/cart-items/${id}`, { quantity });
+      console.log(data);
+      toast.success(data?.msg);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="flex justify-center items-center flex-col py-5">
       <h1 className="text-2xl text-pink-700 font-semibold pb-3">
@@ -55,6 +85,7 @@ const ShoppingCardComponent = () => {
                 <div className="flex flex-col justify-center items-center">
                   <input
                     type="checkbox"
+                    checked={orders.includes(item?.id)}
                     name=""
                     id=""
                     onChange={() => {
@@ -101,7 +132,10 @@ const ShoppingCardComponent = () => {
                 }}
               >
                 <div className="flex flex-col justify-center items-center">
-                  <Counter count={item?.quantity} />
+                  <Counter
+                    count={item?.quantity}
+                    callbackF={(quantity) => updateQuantity(quantity, item?.id)}
+                  />
                 </div>
               </td>
               <td
@@ -115,7 +149,9 @@ const ShoppingCardComponent = () => {
               </td>
               <td className="w-[5%]">
                 <div className="flex flex-col justify-center items-center">
-                  <IconButton>
+                  <IconButton
+                    onClick={() => deleteProduct(item?.id, item?.price)}
+                  >
                     <CloseIcon />
                   </IconButton>
                 </div>
@@ -142,7 +178,13 @@ const ShoppingCardComponent = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.99 }}
           className="bg-pink-700 text-white h-10 w-48 rounded-md md:w-60 ml-4 text-xs md:text-sm"
-          onClick={() => dispatch(changeActiveProcess("checkout"))}
+          onClick={() => {
+            if (orders.length) {
+              dispatch(changeActiveProcess("checkout"));
+            } else {
+              toast.error("please select product to make order");
+            }
+          }}
         >
           PROCESSED TO CHECKOUT
         </motion.button>

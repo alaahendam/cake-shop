@@ -44,8 +44,9 @@ function InOutForm({ theme, submitButton, role }) {
           {
             loading: "Loading",
             success: (data) => {
-              setLoadingLogin(false);
               console.log(data);
+              setLoadingLogin(false);
+              dispatch(addLoginUser(data?.data));
               return `${data?.data?.msg}`;
             },
             error: (data) => {

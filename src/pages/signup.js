@@ -110,4 +110,4 @@ const SignUp = () => {
   );
 };
 
-export default PrivateRoute(SignUp, "sign");
+export default PrivateRoute(SignUp, "sign", "/");

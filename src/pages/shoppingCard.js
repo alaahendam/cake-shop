@@ -13,10 +13,12 @@ const ShoppingCard = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log("hello this cart endpoint");
-      const { data } = await API.get("/orders/cart/");
-      console.log(data);
-      dispatch(addCartData(data?.cart));
+      try {
+        const { data } = await API.get("/orders/cart/");
+        dispatch(addCartData(data?.cart));
+      } catch (error) {
+        console.log(error);
+      }
     };
     fetchData();
   }, []);

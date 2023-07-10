@@ -16,7 +16,7 @@ const NavBar = () => {
   const router = useRouter();
   const pages = ["Products", "About", "Blog", "Contact"];
   const loginUser = useSelector((state) => state.user.user);
-  const cartNum = useSelector((state) => state.cartNum.cartNum);
+  const cartNum = useSelector((state) => state.cart.cartNum);
   console.log({ cartNum });
   const dispatch = useDispatch();
 
@@ -63,11 +63,14 @@ const NavBar = () => {
       >
         {loginUser ? null : <Link href="/signup">Sign Up</Link>}
         {loginUser ? null : <Link href="/login">Log In</Link>}
-        <Link href="/shoppingCard">
-          <Badge badgeContent={cartNum} color="success">
-            <ShoppingCartIcon />
-          </Badge>
-        </Link>
+        {loginUser ? (
+          <Link href="/shoppingCard">
+            <Badge badgeContent={cartNum} color="success">
+              <ShoppingCartIcon />
+            </Badge>
+          </Link>
+        ) : null}
+
         <Link href="/signup">ENG</Link>
 
         {loginUser && (

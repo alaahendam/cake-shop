@@ -22,7 +22,7 @@ const CheckoutTextInput = ({
             {...field}
             id={name}
             label={label}
-            type={"text"}
+            type={type ? type : "text"}
             variant={variant}
             sx={{
               color: "red",
