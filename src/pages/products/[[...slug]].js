@@ -12,8 +12,12 @@ import { useForm, useFieldArray } from "react-hook-form";
 import CategoryIcon from "@mui/icons-material/Category";
 import SubdirectoryArrowRightIcon from "@mui/icons-material/SubdirectoryArrowRight";
 import { IconButton } from "@material-ui/core";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import Image from "next/image";
 const Products = () => {
   const [openAddProduct, setOpenAddProduct] = useState(false);
+  const [productImg, setProductImg] = useState("");
+  const [img, setImg] = useState(null);
   const router = useRouter();
   const data = useSelector((state) => state.products.products);
   const categories = useSelector((state) => state.products.categories);
@@ -26,8 +30,18 @@ const Products = () => {
     reset,
     resetField,
   } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (values) => {
+    try {
+      console.log(values);
+      const { data } = await API.post("/products", {
+        ...values,
+        nameAr: "كيكة جزر",
+        flavourId: 1,
+      });
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -66,6 +80,53 @@ const Products = () => {
           className="w-full h-full py-10 px-6 text-pink-900"
           onSubmit={handleSubmit(onSubmit)}
         >
+          <div className="w-full flex justify-center mb-2">
+            <div className="h-20 w-20 md:w-28 md:h-28 rounded-full bg-gray-300 relative flex justify-center items-center border border-pink-500">
+              <Image
+                priority
+                src={productImg}
+                width={400}
+                height={500}
+                className="w-full h-full rounded-full"
+              />
+              <label
+                htmlFor="productImg"
+                className="absolute cursor-pointer text-pink-300"
+              >
+                <CameraAltIcon />
+              </label>
+            </div>
+
+            {/* <input
+              id="productImg"
+              type="file"
+              accept="image/*"
+              multiple={false}
+              onChange={(e) => {
+                console.log("handler");
+                // console.log(e.target.files[0]);
+                // const file = e.target.files[0]; // Access the first selected file
+                // const fileUrl = URL.createObjectURL(file);
+                // setProductImg(fileUrl);
+              }}
+              {...register(`image`)}
+              hidden
+            /> */}
+            <input
+              id="productImg"
+              type="file"
+              accept="image/*"
+              hidden
+              {...register(`image`)}
+              onChange={(e) => {
+                console.log(e.target.files[0]);
+                const file = e.target.files[0];
+                setImg(file); // Access the first selected file
+                const fileUrl = URL.createObjectURL(file);
+                setProductImg(fileUrl);
+              }}
+            />
+          </div>
           <div className="mb-5">
             <label htmlFor="" className="">
               Name :{" "}
@@ -84,7 +145,7 @@ const Products = () => {
               </label>
               <input
                 type="number"
-                className="w-2/3 md:w-full px-2 focus:outline-pink-700 rounded-md h-10 border border-pink-500"
+                className="w-2/3 md:w-[60%] px-2 focus:outline-pink-700 rounded-md h-10 border border-pink-500"
                 control={control}
                 {...register(`price`)}
               />
@@ -95,7 +156,7 @@ const Products = () => {
               </label>
               <input
                 type="number"
-                className="w-2/3 md:w-full px-2 focus:outline-pink-700 rounded-md h-10 border border-pink-500"
+                className="w-2/3 md:w-[60%] px-2 focus:outline-pink-700 rounded-md h-10 border border-pink-500"
                 control={control}
                 {...register(`quantity`)}
               />
@@ -125,13 +186,13 @@ const Products = () => {
                   <div className="flex mt-2 ml-3 items-center" key={index}>
                     <SubdirectoryArrowRightIcon />
                     <input
-                      type="checkbox"
+                      type="radio"
                       name="subCategory"
                       value={subCategory.id}
                       id=""
                       className="mx-1"
                       control={control}
-                      {...register(`subCategories`)}
+                      {...register(`subCategoryId`)}
                     />
                     <p>{subCategory.nameEn}</p>
                   </div>
@@ -142,7 +203,7 @@ const Products = () => {
           <div className="flex justify-center items-center">
             <input
               type="submit"
-              value="Apply Filter"
+              value="Add Product"
               className=" w-40 h-11 border border-pink-500 rounded-md text-pink-500 cursor-pointer"
             />
           </div>

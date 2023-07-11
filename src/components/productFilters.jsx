@@ -15,6 +15,7 @@ const ProductsFilters = () => {
   const dispatch = useDispatch();
   const productsNum = useSelector((state) => state.products.productsNum);
   const categories = useSelector((state) => state.products.categories);
+  const loginUser = useSelector((state) => state.user.user);
   const router = useRouter();
   const [openFilter, setOpenFilter] = useState(false);
   const {
@@ -42,9 +43,12 @@ const ProductsFilters = () => {
         }
         const { data } = await API.get(
           router.asPath == "/products" || router.asPath == "/products/filter"
-            ? "/products/filter?page=1&size=10"
+            ? loginUser?.role == "COMPANY"
+              ? "/products/user-products-filter"
+              : "/products/filter?page=1&size=10"
             : router.asPath
         );
+        console.log(data);
         dispatch(addProducts(data));
       } catch (error) {
         console.log(error);
@@ -65,8 +69,10 @@ const ProductsFilters = () => {
     let queryObject = router.query;
     delete queryObject[key];
     delete queryObject["slug"];
+    const path =
+      loginUser?.role == "COMPANY" ? "user-products-filter" : "filter";
     router.push({
-      pathname: "/products/filter",
+      pathname: `/products/${path}`,
       query: queryObject,
     });
   };
@@ -80,8 +86,10 @@ const ProductsFilters = () => {
       data.subCategories = data?.subCategories?.toString();
     }
     delete data.slug;
+    const path =
+      loginUser?.role == "COMPANY" ? "user-products-filter" : "filter";
     router.push({
-      pathname: "/products/filter",
+      pathname: `/products/${path}`,
       query: data,
     });
     setOpenFilter(false);
