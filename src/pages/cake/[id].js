@@ -58,7 +58,7 @@ const Cake = () => {
         </div>
         <div>
           <h1 className="text-3xl">{data?.product?.nameEn}</h1>
-          <h3 className="text-1xl">{data?.product?.price} AMD</h3>
+          <h3 className="text-1xl">{data?.product?.price} EGP</h3>
           <h5 className="text-sm">{date.toISOString().split("T")[0]}</h5>
           <div className="w-full h-px bg-pink-400"></div>
           <Rating

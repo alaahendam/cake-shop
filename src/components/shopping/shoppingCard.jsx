@@ -157,9 +157,9 @@ const ShoppingCardComponent = () => {
         </tbody>
       </table>
       <div>
-        <p>Subtotal : {cart?.totalCartPrice} AMD</p>
-        <p>Delivery : 1000 AMD</p>
-        <p>Total : {cart?.totalCartPrice + 1000} AMD</p>
+        <p>Subtotal : {cart?.totalCartPrice} EGP</p>
+        <p>Delivery : 1000 EGP</p>
+        <p>Total : {cart?.totalCartPrice + 1000} EGP</p>
       </div>
       <div className="flex justify-center items-center py-5">
         <motion.button

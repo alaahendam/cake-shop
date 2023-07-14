@@ -115,11 +115,11 @@ const Checkout = () => {
           <div className="bg-[#ba9169] w-full h-px"></div>
           <div className="flex justify-between text-[#ba9169]">
             <p>Subtotal : </p>
-            <p>{ordersPrice} AMD</p>
+            <p>{ordersPrice} EGP</p>
           </div>
           <div className="flex justify-between text-[#ba9169]">
             <p>Subtotal : </p>
-            <p>{ordersPrice + 200} AMD</p>
+            <p>{ordersPrice + 200} EGP</p>
           </div>
         </div>
         <ThemeProvider theme={theme}>

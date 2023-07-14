@@ -63,9 +63,9 @@ const OrderConfirmed = () => {
         </div>
         <div className="flex justify-center py-2 md:justify-end">
           <div>
-            <p>Subtotal : {ordersPrice} AMD</p>
-            <p>Delivery : 1000 AMD</p>
-            <p>Total : {ordersPrice + 1000} AMD</p>
+            <p>Subtotal : {ordersPrice} EGP</p>
+            <p>Delivery : 1000 EGP</p>
+            <p>Total : {ordersPrice + 1000} EGP</p>
           </div>
         </div>
 
