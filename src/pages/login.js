@@ -35,7 +35,7 @@ const Login = () => {
         style={{ backgroundColor: theme.palette.third.main }}
       >
         <div className={styles.form}>
-          <h1>Log in</h1>
+          <h1 className="text-2xl">Log in</h1>
           <InOutForm theme={theme} submitButton="Login" />
         </div>
         <div className={styles.imgContainer}>

@@ -37,6 +37,7 @@ const SignUp = () => {
       backgroundColor: theme.palette.secondary.main,
     },
     margin: "0px 5px",
+    fontFamily: "Pacifico",
   };
   const notActiveRole = {
     backgroundColor: "#fff6ed",
@@ -44,6 +45,7 @@ const SignUp = () => {
       backgroundColor: "#fff6ed",
     },
     margin: "0px 5px",
+    fontFamily: "Pacifico",
   };
   return (
     <ThemeProvider theme={theme}>
@@ -52,7 +54,12 @@ const SignUp = () => {
         style={{ backgroundColor: theme.palette.third.main }}
       >
         <div className={styles.form}>
-          <h1 style={{ color: theme.palette.third.contrastText }}>Sign Up</h1>
+          <h1
+            style={{ color: theme.palette.third.contrastText }}
+            className="text-2xl"
+          >
+            Sign Up
+          </h1>
           <div
             style={{
               display: "flex",

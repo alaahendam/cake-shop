@@ -21,6 +21,7 @@ const Products = () => {
   const [openAddProduct, setOpenAddProduct] = useState(false);
   const [openOrder, setOpenOrder] = useState(false);
   const [productImg, setProductImg] = useState("");
+  const [orderId, setOrderId] = useState(null);
   const [img, setImg] = useState(null);
   const router = useRouter();
   const data = useSelector((state) => state.products.products);
@@ -88,6 +89,20 @@ const Products = () => {
       console.log(error);
     }
   };
+  useEffect(() => {
+    if (orderId) {
+      try {
+        const fetchData = async () => {
+          const { data } = await API.get(`/orders/product-orders/${orderId}`);
+          console.log(data);
+        };
+        fetchData();
+      } catch (error) {
+        console.log(error);
+      }
+      setOpenOrder(true);
+    }
+  }, [orderId]);
   return (
     <div>
       <div className="w-full flex items-center justify-center mt-4">
@@ -119,6 +134,7 @@ const Products = () => {
               key={index}
               info={item}
               callbackF={() => deleteProduct(item?.id)}
+              order={loginUser?.role == "COMPANY" ? setOrderId : null}
             />
           ))}
         </div>

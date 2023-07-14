@@ -92,6 +92,9 @@ const NavBar = () => {
                 vertical: "bottom",
                 horizontal: "right",
               }}
+              sx={{
+                fontFamily: "Pacifico",
+              }}
               keepMounted
               transformOrigin={{
                 vertical: "top",

@@ -27,6 +27,12 @@ const CheckoutTextInput = ({
             sx={{
               color: "red",
               width: "100%",
+              fontFamily: "Pacifico",
+            }}
+            InputLabelProps={{
+              sx: {
+                fontFamily: "Pacifico",
+              },
             }}
           />
         )}

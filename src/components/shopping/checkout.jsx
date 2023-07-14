@@ -51,7 +51,8 @@ const Checkout = () => {
       dispatch(changeActiveProcess("orderConfirmed"));
     } catch (error) {
       console.log(error);
-      toast.error("This is an error!");
+      toast.error(error?.response?.data?.msg);
+      toast.dismiss(loadingToast);
     }
   };
   useEffect(() => {

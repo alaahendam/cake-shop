@@ -162,6 +162,7 @@ function InOutForm({ theme, submitButton, role }) {
         disabled={loadingLogin}
         style={{
           backgroundColor: theme.palette.secondary.main,
+          fontFamily: "Pacifico",
         }}
         sx={{
           color: theme.palette.secondary.contrastText,
@@ -186,8 +187,6 @@ function InOutForm({ theme, submitButton, role }) {
         ) : (
           submitButton
         )}
-
-        {/* {submitButton} */}
       </AnimatedButton>
       <div
         style={{

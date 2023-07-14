@@ -5,6 +5,7 @@
   padding: 0px 24px;
   color: white;
   font-size: 20px;
+  font-family: Pacifico;
 }
 .image-3d {
   transform: perspective(1000px) rotateY(-10deg) rotateX(10deg);

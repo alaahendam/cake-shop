@@ -5,6 +5,7 @@ import OrderConfirmed from "@/components/shopping/orderConfirmed";
 import { useSelector, useDispatch } from "react-redux";
 import { addCartData } from "@/redux/features/cart";
 import API from "../utilities/api";
+import PrivateRoute from "@/utilities/privateRoute";
 const ShoppingCard = () => {
   const activeProcess = useSelector(
     (state) => state.activeProcess.activeProcess
@@ -29,4 +30,5 @@ const ShoppingCard = () => {
   };
   return <div>{process[activeProcess]}</div>;
 };
-export default ShoppingCard;
+
+export default PrivateRoute(ShoppingCard, "CLIENT", "/");

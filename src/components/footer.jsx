@@ -13,7 +13,7 @@ const Footer = () => {
           color: "white",
         }}
       >
-        <h1>Notification</h1>
+        <h1 className="text-3xl">Notification</h1>
         <p>Be informed about our sweet offers and delicious news</p>
         <div>
           <input type="email" name="" id="" placeholder="Your Email" />

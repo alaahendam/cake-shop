@@ -33,11 +33,13 @@ const InputText = ({
             InputLabelProps={{
               sx: {
                 color: theme.palette.primary.main,
-                fontFamily: theme.typography.fontFamily,
+                fontFamily: "Pacifico",
                 fontWeight: 500,
+                fontSize: "18px",
               },
             }}
             sx={{
+              fontFamily: "Pacifico",
               width: "100%",
               ".css-1x51dt5-MuiInputBase-input-MuiInput-input": {
                 color: theme.palette.primary.main,
@@ -50,7 +52,7 @@ const InputText = ({
               ".css-a6v7lc-MuiInputBase-root-MuiInput-root:before": {
                 borderBottom: `1px solid ${theme.palette.primary.main}`,
               },
-              fontFamily: theme.typography.fontFamily,
+
               fontWeight: 500,
             }}
           />

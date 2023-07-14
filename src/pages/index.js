@@ -235,7 +235,7 @@ export default function Home() {
             justifyContent: "space-around",
           }}
         >
-          <h1>Why Us ?</h1>
+          <h1 className="text-3xl">Why Us ?</h1>
           <div
             className={styles.dFlexRow}
             style={{
@@ -301,8 +301,8 @@ export default function Home() {
               className={styles["image-3d"]}
             />
           </motion.div>
-          <div>
-            <h1>Unforgettable Moments</h1>
+          <div className="ml-2 md:ml-0">
+            <h1 className="text-3xl">Unforgettable Moments</h1>
             <p>
               An Opportunity to see loved ones around a table even without an
               occasion

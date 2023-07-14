@@ -11,6 +11,8 @@ import CustomCarousel from "@/components/carousel ";
 import API from "../../utilities/api";
 import { useDispatch } from "react-redux";
 import { addCartNum } from "@/redux/features/cart";
+import PrivateRoute from "@/utilities/privateRoute";
+
 const Cake = () => {
   const [data, setData] = useState({});
   const [quantity, setQuantity] = useState(1);
@@ -92,4 +94,5 @@ const Cake = () => {
     </div>
   );
 };
-export default Cake;
+
+export default PrivateRoute(Cake, "CLIENT", "/");
