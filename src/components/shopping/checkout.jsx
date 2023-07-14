@@ -29,7 +29,6 @@ const Checkout = () => {
   const { handleSubmit, control, reset, register } = useForm({
     defaultValues: { ...loginUser, ...loginUser?.profile },
   });
-  console.log({ ...loginUser, ...loginUser?.profile });
   const onSubmit = async (values) => {
     const loadingToast = toast.loading("Please Wait...");
     try {
@@ -43,9 +42,7 @@ const Checkout = () => {
         deliveryAddress: values.address,
         cartItemsIdes: orders,
       });
-      console.log(ConfirmedOrder);
       dispatch(addCartNum(ConfirmedOrder?.cartLength));
-      console.log(profileData);
       toast.dismiss(loadingToast);
       toast.success(ConfirmedOrder?.msg);
       dispatch(changeActiveProcess("orderConfirmed"));

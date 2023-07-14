@@ -41,7 +41,6 @@ const Products = () => {
     const fetchData = async () => {
       try {
         const { data } = await API.get("/orders/all-orders/");
-        console.log(data);
         dispatch(addAllOrders(data));
       } catch (error) {
         console.log(error);
@@ -61,7 +60,6 @@ const Products = () => {
       }
     }
     try {
-      console.log(values);
       const { data: product } = await APIFORM.post("/products", formData);
       setOpenAddProduct(false);
       dispatch(
@@ -70,7 +68,6 @@ const Products = () => {
           productsNum: productsNum + 1,
         })
       );
-      console.log(product);
     } catch (error) {
       console.log(error);
     }
@@ -78,7 +75,6 @@ const Products = () => {
   const deleteProduct = async (id) => {
     try {
       const { data: deleteMsg } = await API.delete(`/products/${id}`);
-      console.log(deleteMsg);
       dispatch(
         addProducts({
           filtered_products: data.filter((obj) => obj.id != id),
@@ -94,7 +90,6 @@ const Products = () => {
       try {
         const fetchData = async () => {
           const { data } = await API.get(`/orders/product-orders/${orderId}`);
-          console.log(data);
         };
         fetchData();
       } catch (error) {
@@ -178,7 +173,6 @@ const Products = () => {
               hidden
               {...register(`image`)}
               onChange={(e) => {
-                console.log(e.target.files[0]);
                 const file = e.target.files[0];
                 setImg(file); // Access the first selected file
                 const fileUrl = URL.createObjectURL(file);

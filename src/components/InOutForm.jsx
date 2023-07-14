@@ -31,7 +31,6 @@ function InOutForm({ theme, submitButton, role }) {
   const AnimatedButton = motion(Button);
   const { handleSubmit, control, reset } = useForm();
   const onSubmit = async (formData) => {
-    console.log(formData);
     setLoadingLogin(true);
     if (!formData.type) {
       formData.type = "normal";
@@ -44,14 +43,12 @@ function InOutForm({ theme, submitButton, role }) {
           {
             loading: "Loading",
             success: (data) => {
-              console.log(data);
               setLoadingLogin(false);
               dispatch(addLoginUser(data?.data));
               return `${data?.data?.msg}`;
             },
             error: (data) => {
               setLoadingLogin(false);
-              console.log(data);
               return `${
                 data?.response?.data?.msg
                   ? data?.response?.data?.msg
@@ -75,14 +72,12 @@ function InOutForm({ theme, submitButton, role }) {
           {
             loading: "Loading",
             success: (data) => {
-              console.log(data);
               setLoadingLogin(false);
               dispatch(addLoginUser(data?.data));
               return `${data?.data?.msg}`;
             },
             error: (data) => {
               setLoadingLogin(false);
-              console.log(data);
               return `${
                 data?.response?.data?.msg
                   ? data?.response?.data?.msg

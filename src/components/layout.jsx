@@ -8,9 +8,7 @@ import { useRouter } from "next/router";
 const Layout = ({ children }) => {
   const router = useRouter();
   const dispatch = useDispatch();
-  console.log("call layout");
   useEffect(() => {
-    console.log("call useEffect in layout");
     const fetchData = async () => {
       try {
         const [userData, cartNumData] = await Promise.all([

@@ -7,7 +7,6 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     addLoginUser: (state, action) => {
-      console.log(action.payload);
       state.user = action?.payload?.user ? action.payload.user : action.payload;
       typeof window !== "undefined"
         ? action?.payload?.token

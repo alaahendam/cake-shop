@@ -11,9 +11,6 @@ const OrderConfirmed = () => {
   const cart = useSelector((state) => state.cart.cart);
   const orders = useSelector((state) => state.cart.orders);
   const ordersPrice = useSelector((state) => state.cart.ordersPrice);
-  console.log(orders);
-  console.log(cart);
-  console.log(loginUser);
   const date = new Date();
   return (
     <div className="flex flex-col justify-center items-center">

@@ -40,7 +40,6 @@ const responsive = {
   },
 };
 const CustomCarousel = ({ data }) => {
-  console.log(data);
   return (
     <div className="mx-10 mb-10">
       <Carousel

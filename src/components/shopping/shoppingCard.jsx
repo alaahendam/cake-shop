@@ -15,7 +15,6 @@ const ShoppingCardComponent = () => {
   const cart = useSelector((state) => state.cart.cart);
   const orders = useSelector((state) => state.cart.orders);
   const cartNum = useSelector((state) => state.cart.cartNum);
-  console.log(cart);
   const deleteProduct = async (id, price) => {
     try {
       const { data } = await API.delete(`/orders/cart-items/${id}`);
@@ -33,11 +32,8 @@ const ShoppingCardComponent = () => {
     }
   };
   const updateQuantity = async (quantity, id) => {
-    console.log(quantity);
-    console.log(id);
     try {
       const { data } = await API.put(`/orders/cart-items/${id}`, { quantity });
-      console.log(data);
       toast.success(data?.msg);
     } catch (error) {
       console.log(error);

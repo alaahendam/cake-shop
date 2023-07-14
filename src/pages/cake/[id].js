@@ -19,12 +19,10 @@ const Cake = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { id } = router.query;
-  console.log("id", id);
   useEffect(() => {
     try {
       const fetchData = async () => {
         const { data } = await API.get(`products/by-id/${id}`);
-        console.log(data);
         setData(data);
       };
       if (id) {
@@ -40,7 +38,6 @@ const Cake = () => {
       productId: id,
       quantity: quantity,
     });
-    console.log(data);
     if (data?.msg == "product added to cart successfully") {
       dispatch(addCartNum(data?.cartLength));
     }

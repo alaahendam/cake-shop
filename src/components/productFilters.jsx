@@ -48,7 +48,6 @@ const ProductsFilters = () => {
               : "/products/user-products-filter"
             : router.asPath
         );
-        console.log(data);
         dispatch(addProducts(data));
       } catch (error) {
         console.log(error);
@@ -60,7 +59,6 @@ const ProductsFilters = () => {
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await API.get("/categories");
-      console.log("categories data", data);
       dispatch(addCategories(data?.categories));
     };
     fetchData();

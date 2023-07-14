@@ -30,7 +30,6 @@ export default function Home() {
             return acc;
           }, {}),
         };
-        console.log(updatedWhyUsData);
         setWhyUsData(updatedWhyUsData);
       } catch (error) {
         console.log(error);
@@ -38,7 +37,6 @@ export default function Home() {
     };
 
     fetchData();
-    console.log("useEffect");
   }, []);
 
   const bestSellersCakes = [
