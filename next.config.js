@@ -3,13 +3,13 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "**.*.com",
-      },
-    ],
-    domains: ["*"],
+    // remotePatterns: [
+    //   {
+    //     protocol: "https",
+    //     hostname: "**.*.com",
+    //   },
+    // ],
+    domains: ["e-commerce-45z5.onrender.com"],
   },
 };
 
