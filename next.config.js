@@ -9,7 +9,7 @@ const nextConfig = {
         hostname: "**.*.com",
       },
     ],
-    domains: ["res.onrender.com"],
+    domains: ["*"],
   },
 };
 
