@@ -4,8 +4,11 @@ import { motion } from "framer-motion";
 import Favourite from "./favourite";
 import Delete from "./delete";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+
 const CakeCard = ({ info, like, callbackF, order }) => {
   const router = useRouter();
+  const loginUser = useSelector((state) => state.user.user);
   return (
     <motion.div
       className="w-full rounded-md shadow-lg shadow-pink-500/50 cursor-pointer relative"
@@ -37,11 +40,13 @@ const CakeCard = ({ info, like, callbackF, order }) => {
           </div>
         </div>
       </div>
-      {like ? (
-        <Favourite callbackF={callbackF} />
-      ) : (
-        <Delete callbackF={callbackF} />
-      )}
+      {loginUser ? (
+        like ? (
+          <Favourite callbackF={callbackF} />
+        ) : (
+          <Delete callbackF={callbackF} />
+        )
+      ) : null}
     </motion.div>
   );
 };
