@@ -43,9 +43,9 @@ const ProductsFilters = () => {
         }
         const { data } = await API.get(
           router.asPath == "/products" || router.asPath == "/products/filter"
-            ? loginUser?.role == "COMPANY"
-              ? "/products/user-products-filter"
-              : "/products/filter?page=1&size=10"
+            ? loginUser?.role == "CLIENT"
+              ? "/products/filter?page=1&size=10"
+              : "/products/user-products-filter"
             : router.asPath
         );
         console.log(data);
@@ -56,7 +56,7 @@ const ProductsFilters = () => {
     };
 
     fetchData();
-  }, [router]);
+  }, [router, loginUser]);
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await API.get("/categories");

@@ -17,7 +17,6 @@ const NavBar = () => {
   const pages = ["Products", "About", "Blog", "Contact"];
   const loginUser = useSelector((state) => state.user.user);
   const cartNum = useSelector((state) => state.cart.cartNum);
-  console.log({ cartNum });
   const dispatch = useDispatch();
 
   const [anchorEl, setAnchorEl] = React.useState(null);

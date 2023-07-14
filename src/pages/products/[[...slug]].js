@@ -1,26 +1,32 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import CakeCard from "@/components/cakeCard";
 import ProductsFilters from "@/components/productFilters";
 import Footer from "@/components/footer";
 import API from "../../utilities/api";
-import { useSelector } from "react-redux";
+import APIFORM from "../../utilities/apiForm";
+import { useDispatch, useSelector } from "react-redux";
+import { addProducts, addAllOrders } from "@/redux/features/products";
 import Pagination from "@/components/pagination";
 import Dialog from "@mui/material/Dialog";
 import { useForm, useFieldArray } from "react-hook-form";
 import CategoryIcon from "@mui/icons-material/Category";
 import SubdirectoryArrowRightIcon from "@mui/icons-material/SubdirectoryArrowRight";
-import { IconButton } from "@material-ui/core";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import Image from "next/image";
+import Badge from "@mui/material/Badge";
+import Order from "@/components/order";
 const Products = () => {
+  const dispatch = useDispatch();
   const [openAddProduct, setOpenAddProduct] = useState(false);
+  const [openOrder, setOpenOrder] = useState(false);
   const [productImg, setProductImg] = useState("");
   const [img, setImg] = useState(null);
   const router = useRouter();
   const data = useSelector((state) => state.products.products);
+  const productsNum = useSelector((state) => state.products.productsNum);
   const categories = useSelector((state) => state.products.categories);
+  const allOrders = useSelector((state) => state.products.allOrders);
   const loginUser = useSelector((state) => state.user.user);
   const {
     register,
@@ -30,20 +36,58 @@ const Products = () => {
     reset,
     resetField,
   } = useForm();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await API.get("/orders/all-orders/");
+        console.log(data);
+        dispatch(addAllOrders(data));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
   const onSubmit = async (values) => {
+    values["nameAr"] = "كيكة جزر";
+    values["flavourId"] = 1;
+    values["image"] = img;
+    const formData = new FormData();
+    // Convert the object into FormData
+    for (const key in values) {
+      if (values.hasOwnProperty(key)) {
+        formData.append(key, values[key]);
+      }
+    }
     try {
       console.log(values);
-      const { data } = await API.post("/products", {
-        ...values,
-        nameAr: "كيكة جزر",
-        flavourId: 1,
-      });
-      console.log(data);
+      const { data: product } = await APIFORM.post("/products", formData);
+      setOpenAddProduct(false);
+      dispatch(
+        addProducts({
+          filtered_products: [...data, product.product],
+          productsNum: productsNum + 1,
+        })
+      );
+      console.log(product);
     } catch (error) {
       console.log(error);
     }
   };
-
+  const deleteProduct = async (id) => {
+    try {
+      const { data: deleteMsg } = await API.delete(`/products/${id}`);
+      console.log(deleteMsg);
+      dispatch(
+        addProducts({
+          filtered_products: data.filter((obj) => obj.id != id),
+          productsNum: productsNum - 1,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       <div className="w-full flex items-center justify-center mt-4">
@@ -56,11 +100,26 @@ const Products = () => {
           </button>
         ) : null}
         <ProductsFilters />
+        <Badge badgeContent={allOrders?.ordersNum} color="success">
+          <Image
+            priority
+            src="/images/order.png"
+            alt="Example Image"
+            width={400}
+            height={500}
+            className="w-12 h-12 md:w-14 md:h-14 rounded-full cursor-pointer"
+            onClick={() => setOpenOrder(true)}
+          />
+        </Badge>
       </div>
       <div className="container mx-auto p-6 md:px-24 md:py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-10 ">
           {data?.map((item, index) => (
-            <CakeCard key={index} info={item} />
+            <CakeCard
+              key={index}
+              info={item}
+              callbackF={() => deleteProduct(item?.id)}
+            />
           ))}
         </div>
         <div className="w-full flex justify-center mt-5 pt-5">
@@ -96,22 +155,6 @@ const Products = () => {
                 <CameraAltIcon />
               </label>
             </div>
-
-            {/* <input
-              id="productImg"
-              type="file"
-              accept="image/*"
-              multiple={false}
-              onChange={(e) => {
-                console.log("handler");
-                // console.log(e.target.files[0]);
-                // const file = e.target.files[0]; // Access the first selected file
-                // const fileUrl = URL.createObjectURL(file);
-                // setProductImg(fileUrl);
-              }}
-              {...register(`image`)}
-              hidden
-            /> */}
             <input
               id="productImg"
               type="file"
@@ -208,6 +251,17 @@ const Products = () => {
             />
           </div>
         </form>
+      </Dialog>
+      <Dialog
+        disableScrollLock
+        open={openOrder}
+        onClose={() => setOpenOrder(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        //maxWidth={true}
+        fullWidth={true}
+      >
+        <div className="w-full h-full">This is order</div>
       </Dialog>
     </div>
   );
