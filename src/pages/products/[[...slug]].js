@@ -130,6 +130,7 @@ const Products = () => {
               info={item}
               callbackF={() => deleteProduct(item?.id)}
               order={loginUser?.role == "COMPANY" ? setOrderId : null}
+              like={loginUser?.role == "COMPANY" ? false : true}
             />
           ))}
         </div>

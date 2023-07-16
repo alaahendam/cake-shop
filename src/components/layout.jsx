@@ -18,11 +18,11 @@ const Layout = ({ children }) => {
 
         const { data: userDataResponse } = userData;
         const { data: cartNumDataResponse } = cartNumData;
-
+        console.log(cartNumDataResponse);
         if (userDataResponse.user) {
           dispatch(addLoginUser(userDataResponse.user));
         }
-        if (cartNumDataResponse.cartLength) {
+        if (cartNumDataResponse) {
           dispatch(addCartNum(cartNumDataResponse.cartLength));
         }
       } catch (error) {

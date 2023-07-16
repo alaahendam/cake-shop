@@ -43,6 +43,7 @@ function InOutForm({ theme, submitButton, role }) {
           {
             loading: "Loading",
             success: (data) => {
+              console.log(data);
               setLoadingLogin(false);
               dispatch(addLoginUser(data?.data));
               return `${data?.data?.msg}`;
@@ -72,6 +73,7 @@ function InOutForm({ theme, submitButton, role }) {
           {
             loading: "Loading",
             success: (data) => {
+              console.log(data);
               setLoadingLogin(false);
               dispatch(addLoginUser(data?.data));
               return `${data?.data?.msg}`;

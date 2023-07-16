@@ -11,6 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { useSelector, useDispatch } from "react-redux";
 import { addLoginUser } from "@/redux/features/user";
+import { deleteCart } from "@/redux/features/cart";
 import { useRouter } from "next/router";
 const NavBar = () => {
   const router = useRouter();
@@ -32,6 +33,7 @@ const NavBar = () => {
     setAnchorEl(null);
     localStorage.clear();
     dispatch(addLoginUser(null));
+    dispatch(deleteCart());
   };
   return (
     <nav
@@ -62,7 +64,7 @@ const NavBar = () => {
       >
         {loginUser ? null : <Link href="/signup">Sign Up</Link>}
         {loginUser ? null : <Link href="/login">Log In</Link>}
-        {loginUser ? (
+        {loginUser?.role == "CLIENT" ? (
           <Link href="/shoppingCard">
             <Badge badgeContent={cartNum} color="success">
               <ShoppingCartIcon />
