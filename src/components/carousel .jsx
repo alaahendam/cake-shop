@@ -52,7 +52,7 @@ const CustomCarousel = ({ data }) => {
       >
         {data?.map((item) => (
           <div className="mr-2 pb-5" key={item.id}>
-            <CakeCard info={item} />
+            <CakeCard info={item} like={true} />
           </div>
         ))}
       </Carousel>

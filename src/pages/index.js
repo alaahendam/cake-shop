@@ -21,7 +21,7 @@ export default function Home() {
     const fetchData = async () => {
       try {
         const { data } = await API.get("/orders/bestSellers");
-
+        console.log(data);
         // Spread the users array and use role names as keys
         const updatedWhyUsData = {
           ...data,
@@ -309,7 +309,7 @@ export default function Home() {
         </div>
         <div>
           <div>
-            <CustomCarousel data={bestSellersCakes ?? [{}]} />
+            <CustomCarousel data={whyUsData?.productsList ?? [{}]} />
           </div>
         </div>
         <div className="flex justify-center items-center flex-wrap py-10">
