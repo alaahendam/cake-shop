@@ -12,6 +12,7 @@ import API from "../../utilities/api";
 import { useDispatch } from "react-redux";
 import { addCartNum } from "@/redux/features/cart";
 import PrivateRoute from "@/utilities/privateRoute";
+import Skeleton from "@mui/material/Skeleton";
 
 const Cake = () => {
   const [data, setData] = useState({});
@@ -46,14 +47,19 @@ const Cake = () => {
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 p-10">
         <div className="w-full relative" dir="rtl">
-          <Image
-            priority
-            src={data?.product?.url ?? `/images/cheeseCake.jpg`}
-            alt="Example Image"
-            width={1000}
-            height={1000}
-            className="w-full md:w-3/5 h-96 rounded-md"
-          />
+          {data?.product?.url ? (
+            <Image
+              priority
+              src={data?.product?.url}
+              alt="Example Image"
+              width={200}
+              height={200}
+              className="w-full md:w-3/5 h-96 rounded-md"
+            />
+          ) : (
+            <Skeleton className="w-full md:w-3/5 h-96 rounded-md" />
+          )}
+
           <Favourite />
         </div>
         <div>
